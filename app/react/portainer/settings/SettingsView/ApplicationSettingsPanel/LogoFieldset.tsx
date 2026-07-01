@@ -1,0 +1,48 @@
+import { useField, Field } from 'formik';
+
+import { FormControl } from '@@/form-components/FormControl';
+import { Input } from '@@/form-components/Input';
+import { SwitchField } from '@@/form-components/SwitchField';
+
+import { useToggledValue } from '../useToggledValue';
+
+export function LogoFieldset() {
+  const [{ name }, { error }] = useField<string>('logo');
+
+  const [isEnabled, setIsEnabled] = useToggledValue('logo');
+
+  return (
+    <>
+      <div className="form-group">
+        <div className="col-sm-12">
+          <SwitchField
+            label="使用自定义标志"
+            data-cy="custom-logo-switch"
+            checked={isEnabled}
+            name="toggle_logo"
+            labelClass="col-sm-3 col-lg-2"
+            onChange={(checked) => setIsEnabled(checked)}
+          />
+        </div>
+      </div>
+
+      {isEnabled && (
+        <div>
+          <div className="form-group">
+            <span className="col-sm-12 text-muted small">
+              您可以在此指定标志的 URL。为获得最佳显示效果，标志尺寸应为 155px x 55px。
+            </span>
+          </div>
+          <FormControl label="URL 地址" inputId="logo_url" errors={error} required>
+            <Field
+              as={Input}
+              name={name}
+              id="logo_url"
+              placeholder="https://mycompany.com/logo.png"
+            />
+          </FormControl>
+        </div>
+      )}
+    </>
+  );
+}

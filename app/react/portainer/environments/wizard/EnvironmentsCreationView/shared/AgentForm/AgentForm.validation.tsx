@@ -1,0 +1,48 @@
+import { mixed, object, SchemaOf, string } from 'yup';
+
+import { CreateAgentEnvironmentValues } from '@/react/portainer/environments/environment.service/create';
+import { useNameValidation } from '@/react/portainer/environments/common/NameField/NameField';
+import { metadataValidation } from '@/react/portainer/environments/common/MetadataFieldset/validation';
+
+export function useValidation(): SchemaOf<CreateAgentEnvironmentValues> {
+  return object({
+    name: useNameValidation(),
+    environmentUrl: environmentValidation(),
+    meta: metadataValidation(),
+    containerEngine: mixed().oneOf(['docker', 'podman']),
+  });
+}
+
+function environmentValidation() {
+  return string()
+    .required('此字段为必填项')
+    .test(
+      'address',
+      '环境地址格式必须为 <IP>:<端口> 或 <主机>:<端口>。',
+      (environmentUrl) => validateAddress(environmentUrl)
+    );
+}
+
+export function validateAddress(address: string | undefined) {
+  if (typeof address === 'undefined') {
+    return false;
+  }
+
+  if (address.indexOf('://') > -1) {
+    return false;
+  }
+
+  const [host, port] = address.split(':');
+
+  if (
+    host.length === 0 ||
+    Number.isNaN(parseInt(port, 10)) ||
+    port.match(/^[0-9]+$/) == null ||
+    parseInt(port, 10) < 1 ||
+    parseInt(port, 10) > 65535
+  ) {
+    return false;
+  }
+
+  return true;
+}

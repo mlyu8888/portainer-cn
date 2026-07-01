@@ -1,0 +1,73 @@
+import { FormSection } from '@@/form-components/FormSection';
+import { TextTip } from '@@/Tip/TextTip';
+
+import { ApplicationFormValues } from '../../types';
+
+import { getAppResourceSummaries, getArticle } from './utils';
+import { Summary } from './types';
+
+type Props = {
+  formValues: ApplicationFormValues;
+  oldFormValues: ApplicationFormValues;
+};
+
+export function ApplicationSummarySection({
+  formValues,
+  oldFormValues,
+}: Props) {
+  // extract cpu and memory requests & limits for pod
+  const limits = {
+    cpu: formValues.CpuLimit,
+    memory: formValues.MemoryLimit,
+  };
+  const appResourceSummaries = getAppResourceSummaries(
+    formValues,
+    oldFormValues
+  );
+
+  if (!appResourceSummaries || appResourceSummaries?.length === 0) {
+    return null;
+  }
+
+  return (
+    <FormSection title="摘要" isFoldable defaultFolded={false}>
+      <TextTip color="blue">
+        Portainer 将执行以下 Kubernetes 操作。
+      </TextTip>
+      <ul className="w-full small text-muted ml-5">
+        {appResourceSummaries.map((summary) => (
+          <SummaryItem key={JSON.stringify(summary)} summary={summary} />
+        ))}
+        {!!limits.memory && (
+          <li>
+        将内存资源限制和请求设置为{' '}
+        <code>{limits.memory}M</code>
+          </li>
+        )}
+        {!!limits.cpu && (
+          <li>
+        将 CPU 资源限制和请求设置为{' '}
+        <code>{limits.cpu}</code>
+          </li>
+        )}
+      </ul>
+    </FormSection>
+  );
+}
+
+function SummaryItem({ summary }: { summary: Summary }) {
+  return (
+    <li>
+      {`${summary.action} `}
+      <span className="bold">{summary.kind}</span>
+      {' 名称为 '}
+      <code>{summary.name}</code>
+      {!!summary.type && (
+        <span>
+          {' 类型为 '}
+          <code>{summary.type}</code>
+        </span>
+      )}
+    </li>
+  );
+}

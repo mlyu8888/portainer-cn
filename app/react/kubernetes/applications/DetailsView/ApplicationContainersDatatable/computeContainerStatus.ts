@@ -1,0 +1,360 @@
+import { ContainerStatus } from 'kubernetes-types/core/v1';
+
+import { ContainerRowData } from './types';
+
+/**
+ * Compute the status of a container, with translated messages.
+ *
+ * The cases are hardcoded, because there is not a single source that enumerates
+ * all the possible states.
+ * @param containerName - The name of the container
+ * @param containerStatuses - The statuses of the container
+ * @param initContainerStatuses - The statuses of the init container
+ * @returns The status of the container
+ */
+export function computeContainerStatus(
+  containerName: string,
+  containerStatuses?: ContainerStatus[],
+  initContainerStatuses?: ContainerStatus[]
+): ContainerRowData['status'] {
+  // Choose the correct status array based on container type
+  const statuses = [
+    ...(containerStatuses || []),
+    ...(initContainerStatuses || []),
+  ];
+  const status = statuses?.find((status) => status.name === containerName);
+
+  if (!status) {
+    return {
+      status: '未知',
+      type: 'muted',
+      message: '容器状态信息不可用',
+    };
+  }
+
+  const hasLogs = hasContainerEverStarted(status);
+  const { state, restartCount = 0 } = status;
+
+  // Handle waiting state with more specific reasons
+  if (state?.waiting) {
+    const { reason, message } = state.waiting;
+    if (reason) {
+      // Return specific waiting reasons that match kubectl output
+      switch (reason) {
+        case 'ImagePullBackOff':
+        case 'ErrImagePull':
+        case 'ImageInspectError':
+        case 'ErrImageNeverPull':
+          return {
+            status: reason,
+            type: 'danger',
+            message:
+              message ||
+              '拉取容器镜像失败。请检查镜像名称、仓库访问和网络连接。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'ContainerCreating':
+          return {
+            status: reason,
+            type: 'info',
+            message:
+              message ||
+              '容器正在创建中。这可能需要一些时间。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'info')
+              ? restartCount
+              : undefined,
+          };
+        case 'PodInitializing':
+          return {
+            status: `Waiting (${reason})`,
+            type: 'info',
+            message:
+              message ||
+              '等待初始化容器完成。请稍候或检查未能完成的初始化容器的日志。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'info')
+              ? restartCount
+              : undefined,
+          };
+        case 'CreateContainerConfigError':
+        case 'CreateContainerError':
+          return {
+            status: reason,
+            type: 'danger',
+            message:
+              message ||
+              '创建容器失败。请检查资源限制、安全上下文和存储卷挂载。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'InvalidImageName':
+          return {
+            status: reason,
+            type: 'danger',
+            message:
+              message ||
+              '指定的容器镜像名称无效或格式错误。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'CrashLoopBackOff':
+          return {
+            status: reason,
+            type: 'danger',
+            message: `容器启动后持续崩溃。请检查应用日志和启动配置。${
+              message ? `Details: '${message}'` : ''
+            }`,
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'RunContainerError':
+          return {
+            status: reason,
+            type: 'danger',
+            message:
+              message ||
+              '启动容器进程失败。请检查命令、参数和环境变量。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'KillContainerError':
+          return {
+            status: reason,
+            type: 'danger',
+            message:
+              message ||
+              '优雅停止容器失败。容器可能无响应。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'VerifyNonRootError':
+          return {
+            status: reason,
+            type: 'danger',
+            message:
+              message ||
+              '容器尝试以 root 用户运行，但安全策略要求以非 root 用户执行。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'ConfigError':
+          return {
+            status: reason,
+            type: 'danger',
+            message:
+              message ||
+              '容器配置无效。请检查资源需求和安全设置。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        default:
+          return {
+            status: reason,
+            type: 'muted',
+            message: message || `容器正在等待：${reason}`,
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'muted')
+              ? restartCount
+              : undefined,
+          };
+      }
+    }
+    return {
+      status: '等待中',
+      type: 'muted',
+      message: message || '容器正在等待调度或启动。',
+      hasLogs,
+      restartCount: shouldShowRestartCount(restartCount, 'muted')
+        ? restartCount
+        : undefined,
+    };
+  }
+
+  // Handle terminated state
+  if (state?.terminated) {
+    const { exitCode = 0, reason, message } = state.terminated;
+
+    if (reason) {
+      switch (reason) {
+        case 'Error':
+          return {
+            status: '错误',
+            type: 'danger',
+            message: `容器已退出，代码为 ${exitCode}${
+              restartCount > 0 ? `（已重启 ${restartCount} 次）` : ''
+            }。${message || '查看应用日志以了解错误详情。'}`,
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'Completed':
+          return {
+            status: '已完成',
+            type: 'success',
+            message,
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'success')
+              ? restartCount
+              : undefined,
+          };
+        case 'OOMKilled':
+          return {
+            status: '内存耗尽终止',
+            type: 'danger',
+            message:
+              message ||
+              '容器因内存不足被终止。请考虑增加内存限制。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'DeadlineExceeded':
+          return {
+            status: '超时终止',
+            type: 'danger',
+            message:
+              message ||
+              '容器因超过活动截止时间而被终止。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        case 'Evicted':
+          return {
+            status: '已驱逐',
+            type: 'warn',
+            message:
+              message ||
+              '容器因节点资源压力被驱逐。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'warn')
+              ? restartCount
+              : undefined,
+          };
+        case 'NodeLost':
+          return {
+            status: '节点丢失',
+            type: 'danger',
+            message:
+              message || '容器在节点不可达时丢失。',
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'danger')
+              ? restartCount
+              : undefined,
+          };
+        default:
+          return {
+            status: reason,
+            type: 'muted',
+            message: `容器已终止：${reason}${
+              restartCount > 0 ? `（已重启 ${restartCount} 次）` : ''
+            }。${message || ''}`,
+            hasLogs,
+            restartCount: shouldShowRestartCount(restartCount, 'muted')
+              ? restartCount
+              : undefined,
+          };
+      }
+    }
+
+    if (exitCode === 0) {
+      return {
+        status: '已完成',
+        type: 'success',
+        message,
+        hasLogs,
+        restartCount: shouldShowRestartCount(restartCount, 'success')
+          ? restartCount
+          : undefined,
+      };
+    }
+
+    return {
+      status: '错误',
+      type: 'danger',
+      message: `容器已退出，代码为 ${exitCode}${
+        restartCount > 0 ? `（已重启 ${restartCount} 次）` : ''
+      }。${message || '查看应用日志以了解错误详情。'}`,
+      hasLogs,
+      restartCount: shouldShowRestartCount(restartCount, 'danger')
+        ? restartCount
+        : undefined,
+    };
+  }
+
+  // Handle running state
+  if (state?.running) {
+    // Check if container is ready
+    if (status.ready === false) {
+      return {
+        status: '运行中（未就绪）',
+        type: 'warn',
+        message:
+          '容器正在运行但未就绪。请检查就绪探针配置。',
+        hasLogs,
+        restartCount: shouldShowRestartCount(restartCount, 'warn')
+          ? restartCount
+          : undefined,
+      };
+    }
+    return {
+      status: '运行中',
+      type: 'success',
+      hasLogs,
+      restartCount: shouldShowRestartCount(restartCount, 'success')
+        ? restartCount
+        : undefined,
+    };
+  }
+
+  // Fallback
+  return {
+    status: '未知',
+    type: 'muted',
+    message:
+      '无法确定容器状态。状态信息可能不完整。',
+    hasLogs,
+    restartCount: shouldShowRestartCount(restartCount, 'muted')
+      ? restartCount
+      : undefined,
+  };
+}
+
+// Helper function to determine if restart count should be shown
+function shouldShowRestartCount(
+  restartCount: number,
+  type: ContainerRowData['status']['type']
+) {
+  return restartCount >= 1 && (type === 'danger' || type === 'warn');
+}
+
+function hasContainerEverStarted(status: ContainerStatus): boolean {
+  return (
+    !!status.state?.running?.startedAt ||
+    !!status.state?.terminated?.startedAt ||
+    !!status.lastState?.running?.startedAt ||
+    !!status.lastState?.terminated?.startedAt ||
+    !!status.containerID
+  );
+}

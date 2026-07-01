@@ -1,0 +1,97 @@
+import { FormikErrors } from 'formik';
+import { Plus } from 'lucide-react';
+
+import { Card } from '@@/Card';
+import { TextTip } from '@@/Tip/TextTip';
+import { Button } from '@@/buttons';
+
+import {
+  serviceFormDefaultValues,
+  generateUniqueName,
+  newPort,
+} from '../utils';
+import { ServiceFormValues, ServicePort } from '../types';
+
+import { NodePortServiceForm } from './NodePortServiceForm';
+
+interface Props {
+  services: ServiceFormValues[];
+  onChangeService: (services: ServiceFormValues[]) => void;
+  errors?: FormikErrors<ServiceFormValues[]>;
+  appName: string;
+  selector: Record<string, string>;
+  namespace?: string;
+  isEditMode?: boolean;
+}
+
+export function NodePortServicesForm({
+  services,
+  onChangeService,
+  errors,
+  appName,
+  selector,
+  namespace,
+  isEditMode,
+}: Props) {
+  const nodePortServiceCount = services.filter(
+    (service) => service.Type === 'NodePort'
+  ).length;
+  return (
+    <Card className="pb-5">
+      <div className="flex flex-col gap-6">
+        <TextTip color="blue">
+          通过 <b>NodePort 服务</b>允许访问集群<b>外部</b>流量。通常不建议用于生产环境。
+        </TextTip>
+        {nodePortServiceCount > 0 && (
+          <div className="flex w-full flex-col gap-4">
+            {services.map((service, index) =>
+              service.Type === 'NodePort' ? (
+                <NodePortServiceForm
+                  key={index}
+                  serviceName={service.Name}
+                  servicePorts={service.Ports}
+                  errors={errors?.[index]?.Ports}
+                  onChangePort={(servicePorts: ServicePort[]) => {
+                    const newServices = [...services];
+                    newServices[index].Ports = servicePorts;
+                    onChangeService(newServices);
+                  }}
+                  services={services}
+                  serviceIndex={index}
+                  onChangeService={onChangeService}
+                  namespace={namespace}
+                  isEditMode={isEditMode}
+                />
+              ) : null
+            )}
+          </div>
+        )}
+        <div className="flex">
+          <Button
+            color="secondary"
+            className="!ml-0"
+            icon={Plus}
+            size="small"
+            onClick={() => {
+              // create a new service form value and add it to the list of services
+              const newService = structuredClone(serviceFormDefaultValues);
+              newService.Name = generateUniqueName(
+                appName,
+                services.length + 1,
+                services
+              );
+              newService.Type = 'NodePort';
+              const newServicePort = newPort(newService.Name);
+              newService.Ports = [newServicePort];
+              newService.Selector = selector;
+              onChangeService([...services, newService]);
+            }}
+            data-cy="k8sAppCreate-createServiceButton"
+          >
+            创建服务
+          </Button>
+        </div>
+      </div>
+    </Card>
+  );
+}
