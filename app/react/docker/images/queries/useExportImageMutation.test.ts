@@ -184,8 +184,7 @@ describe('exportImage', () => {
     });
 
     const url = new URL(requestUrl);
-    // Axios serializes array params with brackets: names[]=value1&names[]=value2
-    const names = url.searchParams.getAll('names[]');
+    const names = url.searchParams.getAll('names');
     expect(names).toEqual(['nginx:latest', 'redis:alpine']);
     expect(saveAs).toHaveBeenCalled();
   });
@@ -216,7 +215,7 @@ describe('exportImage', () => {
     });
 
     const url = new URL(requestUrl);
-    const names = url.searchParams.getAll('names[]');
+    const names = url.searchParams.getAll('names');
     expect(names).toEqual([
       'nginx:latest',
       'sha256:def456',
@@ -258,7 +257,7 @@ describe('exportImage', () => {
       images: [{ id: 'sha256:abc123', tags: ['nginx:latest'] }],
     });
 
-    expect(saveAs).toHaveBeenCalledWith(mockBlob, '');
+    expect(saveAs).toHaveBeenCalledWith(mockBlob, expect.stringMatching(/^images-\d+\.tar$/));
   });
 });
 
