@@ -20,7 +20,6 @@ go.work.sum
 
 .vitest
 .claude
-CLAUDE.md
 AGENTS.md
 TRANSLATION_PROGRESS.md
 
