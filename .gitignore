@@ -32,3 +32,6 @@ coverage.out
 
 # 日志文件
 *.log
+
+# CodeGraph 本地代码索引数据
+.codegraph/
