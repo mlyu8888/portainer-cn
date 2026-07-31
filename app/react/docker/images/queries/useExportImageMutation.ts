@@ -52,7 +52,7 @@ export async function exportImage({
       responseHeaders['content-disposition'] || '';
     const filename = contentDispositionHeader
       .replace('attachment; filename=', '')
-      .trim() || `images-${Date.now()}.tar`;
+      .trim() || getExportFileName(getImagesNamesForDownload(images).names);
     saveAs(data, filename);
   } catch (err) {
     throw parseAxiosError(err as Error, 'Unable to export image');
@@ -70,4 +70,21 @@ export function getImagesNamesForDownload(
   return {
     names,
   };
+}
+
+function getExportFileName(names: string[]) {
+  const tags = names
+    .map(getTagName)
+    .filter((n): n is string => !!n);
+  return `${tags.length ? tags.join('_') : 'images'}.tar`;
+}
+
+function getTagName(name?: string) {
+  if (!name) {
+    return undefined;
+  }
+  if (name.startsWith('sha256:')) {
+    return undefined;
+  }
+  return name.split('/').pop()?.replace(':', '-');
 }

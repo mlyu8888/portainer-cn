@@ -257,7 +257,48 @@ describe('exportImage', () => {
       images: [{ id: 'sha256:abc123', tags: ['nginx:latest'] }],
     });
 
-    expect(saveAs).toHaveBeenCalledWith(mockBlob, expect.stringMatching(/^images-\d+\.tar$/));
+    expect(saveAs).toHaveBeenCalledWith(mockBlob, 'nginx-latest.tar');
+  });
+
+  it('should join multiple image names in filename without content-disposition header', async () => {
+    const mockBlob = new Blob(['image data'], { type: 'application/x-tar' });
+
+    server.use(
+      http.get(
+        '/api/endpoints/:envId/docker/images/get',
+        () => new Response(mockBlob)
+      )
+    );
+
+    await exportImage({
+      environmentId: 1,
+      nodeName: undefined,
+      images: [
+        { id: 'sha256:abc123', tags: ['nginx:latest'] },
+        { id: 'sha256:def456', tags: ['redis:alpine'] },
+      ],
+    });
+
+    expect(saveAs).toHaveBeenCalledWith(mockBlob, 'nginx-latest_redis-alpine.tar');
+  });
+
+  it('should fallback to images.tar when no tag is available', async () => {
+    const mockBlob = new Blob(['image data'], { type: 'application/x-tar' });
+
+    server.use(
+      http.get(
+        '/api/endpoints/:envId/docker/images/get',
+        () => new Response(mockBlob)
+      )
+    );
+
+    await exportImage({
+      environmentId: 1,
+      nodeName: undefined,
+      images: [{ id: 'sha256:abc123', tags: undefined }],
+    });
+
+    expect(saveAs).toHaveBeenCalledWith(mockBlob, 'images.tar');
   });
 });
 
