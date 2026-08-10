@@ -48,7 +48,7 @@ export function useIngress(
       return ing;
     },
     {
-      ...withGlobalError('Unable to get ingress'),
+      ...withGlobalError('无法获取入口'),
     }
   );
 }
@@ -67,7 +67,7 @@ export function useIngresses(
     [...queryKeys.clusterIngresses(environmentId), params],
     async () => getIngresses(environmentId, params),
     {
-      ...withGlobalError('Unable to get ingresses'),
+      ...withGlobalError('无法获取入口列表'),
       refetchInterval: autoRefreshRate,
       enabled,
     }
@@ -85,7 +85,7 @@ export function useCreateIngress() {
       ingress: Ingress;
     }) => createIngress(environmentId, ingress),
     mutationOptions(
-      withGlobalError('Unable to create ingress controller'),
+      withGlobalError('无法创建入口控制器'),
       withInvalidate(queryClient, [queryKeys.base])
     )
   );
@@ -102,7 +102,7 @@ export function useUpdateIngress() {
       ingress: Ingress;
     }) => updateIngress(environmentId, ingress),
     mutationOptions(
-      withGlobalError('Unable to update ingress controller'),
+      withGlobalError('无法更新入口控制器'),
       withInvalidate(queryClient, [queryKeys.base])
     )
   );
@@ -119,7 +119,7 @@ export function useDeleteIngresses() {
       data: DeleteIngressesRequest;
     }) => deleteIngresses(environmentId, data),
     mutationOptions(
-      withGlobalError('Unable to update ingress controller'),
+      withGlobalError('无法更新入口控制器'),
       withInvalidate(queryClient, [queryKeys.base])
     )
   );
@@ -141,7 +141,7 @@ export function useIngressControllers(
         : [],
     {
       enabled: !!namespace,
-      ...withGlobalError('Unable to get ingress controllers'),
+      ...withGlobalError('无法获取入口控制器'),
     }
   );
 }

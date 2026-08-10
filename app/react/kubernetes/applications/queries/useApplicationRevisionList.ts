@@ -40,7 +40,7 @@ export function useApplicationRevisionList(
         labelSelector
       ),
     {
-      ...withGlobalError('Unable to retrieve application revisions'),
+      ...withGlobalError('无法检索应用修订版本'),
       enabled: !!labelSelector && !!appKind && !!deploymentUid,
     }
   );
@@ -106,7 +106,7 @@ async function getApplicationRevisionList(
   } catch (e) {
     throw parseAxiosError(
       e as Error,
-      `Unable to retrieve revisions for ${appKind}`
+      `无法检索 ${appKind} 的修订版本`
     );
   }
 }
@@ -127,7 +127,7 @@ async function getReplicaSetList(
     );
     return data;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve ReplicaSets');
+    throw parseKubernetesAxiosError(e, '无法检索 ReplicaSet');
   }
 }
 

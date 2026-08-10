@@ -12,7 +12,7 @@ async function getEdgeJobs() {
     const { data } = await axios.get<EdgeJob[]>(buildUrl());
     return data;
   } catch (err) {
-    throw parseAxiosError(err as Error, 'Failed fetching edge jobs');
+    throw parseAxiosError(err as Error, '获取边缘任务失败');
   }
 }
 

@@ -62,7 +62,7 @@ export function useCommitContainerMutation(environmentId: EnvironmentId) {
       });
     },
 
-    ...withGlobalError('Unable to create image'),
+    ...withGlobalError('无法创建镜像'),
     onSuccess: (_, { containerId, environmentId }) =>
       queryClient.invalidateQueries(
         queryKeys.container(environmentId, containerId)

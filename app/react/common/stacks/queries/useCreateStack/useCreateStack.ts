@@ -28,7 +28,7 @@ import { createKubernetesStackFromFileContent } from './createKubernetesStackFro
 export function useCreateStack() {
   const queryClient = useQueryClient();
   return useMutation(createStack, {
-    ...withGlobalError('Failed to create stack'),
+    ...withGlobalError('创建堆栈失败'),
     ...withInvalidate(queryClient, [queryKeys.base()]),
   });
 }

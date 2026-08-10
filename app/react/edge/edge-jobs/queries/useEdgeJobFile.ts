@@ -19,7 +19,7 @@ async function getEdgeJobFile(id: EdgeJobResponse['Id']) {
     );
     return data.FileContent;
   } catch (err) {
-    throw parseAxiosError(err, 'Failed fetching edge job file');
+    throw parseAxiosError(err, '获取边缘任务文件失败');
   }
 }
 

@@ -20,7 +20,7 @@ export function useDeleteEdgeGroupsMutation() {
         edgeGroupIds.map((edgeGroupId) => () => deleteEdgeGroup(edgeGroupId))
       ),
     mutationOptions(
-      withError('Unable to delete Edge Group(s)'),
+      withError('无法删除边缘组'),
       withInvalidate(queryClient, [queryKeys.base()])
     )
   );
@@ -30,6 +30,6 @@ async function deleteEdgeGroup(id: EdgeGroup['Id']) {
   try {
     await axios.delete(buildUrl({ id }));
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to delete edge Group');
+    throw parseAxiosError(e, '无法删除边缘组');
   }
 }

@@ -17,7 +17,7 @@ export function useCollectLogsMutation() {
         logsStatusQueryKey(variables.edgeStackId, variables.environmentId)
       );
     },
-    ...withError('Unable to retrieve logs'),
+    ...withError('无法检索日志'),
   });
 }
 
@@ -30,6 +30,6 @@ async function collectLogs({ edgeStackId, environmentId }: CollectLogs) {
   try {
     await axios.put(`/edge_stacks/${edgeStackId}/logs/${environmentId}`);
   } catch (error) {
-    throw parseAxiosError(error as Error, 'Unable to start logs collection');
+    throw parseAxiosError(error as Error, '无法启动日志收集');
   }
 }

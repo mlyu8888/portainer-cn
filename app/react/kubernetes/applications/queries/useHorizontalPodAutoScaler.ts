@@ -37,7 +37,7 @@ export function useHorizontalPodAutoScaler<
           )
         : undefined,
     {
-      ...withGlobalError('Unable to get horizontal pod autoscaler'),
+      ...withGlobalError('无法获取水平 Pod 自动扩缩器'),
       enabled: !!name,
     }
   );

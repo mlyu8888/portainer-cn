@@ -11,6 +11,6 @@ export async function generateKey() {
     );
     return data.edgeKey;
   } catch (err) {
-    throw parseAxiosError(err as Error, 'Unable to generate key');
+    throw parseAxiosError(err as Error, '无法生成密钥');
   }
 }

@@ -34,12 +34,12 @@ export function useDeleteSecrets(environmentId: EnvironmentId) {
       return { failedSecrets, successfulSecrets };
     },
     {
-      ...withGlobalError('Unable to remove secrets'),
+      ...withGlobalError('无法移除密钥'),
       onSuccess: ({ failedSecrets, successfulSecrets }) => {
         // show an error message for each secret that failed to delete
         failedSecrets.forEach(({ name, reason }) => {
           notifyError(
-            `Failed to remove secret '${name}'`,
+            `移除密钥 '${name}' 失败`,
             new Error(reason.message) as Error
           );
         });
@@ -49,7 +49,7 @@ export function useDeleteSecrets(environmentId: EnvironmentId) {
             `${pluralize(
               successfulSecrets.length,
               'Secret'
-            )} successfully removed`,
+            )} 已成功移除`,
             successfulSecrets.join(', ')
           );
         }
@@ -71,6 +71,6 @@ async function deleteSecret(
       `/endpoints/${environmentId}/kubernetes/api/v1/namespaces/${namespace}/secrets/${name}`
     );
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to remove secret');
+    throw parseKubernetesAxiosError(e, '无法移除密钥');
   }
 }

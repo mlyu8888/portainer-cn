@@ -18,7 +18,7 @@ export function useHelmHistory(
     () => getHelmHistory(environmentId, name, namespace),
     {
       enabled: !!environmentId && !!name && !!namespace,
-      ...withGlobalError('Unable to retrieve helm application history'),
+      ...withGlobalError('无法检索 Helm 应用历史'),
       retry: 3,
       // occasionally the application shows before the release is created, take some more time to refetch
       retryDelay: 2000,
@@ -41,6 +41,6 @@ async function getHelmHistory(
 
     return response.data;
   } catch (error) {
-    throw parseAxiosError(error, 'Unable to retrieve helm application history');
+    throw parseAxiosError(error, '无法检索 Helm 应用历史');
   }
 }

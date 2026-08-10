@@ -34,6 +34,6 @@ async function downloadLogsMutation(
     saveAs(downloadData, logFileName);
     return data;
   } catch (err) {
-    throw parseAxiosError(err, 'Unable to download file');
+    throw parseAxiosError(err, '无法下载文件');
   }
 }

@@ -29,7 +29,7 @@ export function useNamespacesQuery<T = PortainerNamespace[]>(
         options?.withUnhealthyEvents
       ),
     {
-      ...withGlobalError('Unable to get namespaces.'),
+      ...withGlobalError('无法获取命名空间。'),
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
       },

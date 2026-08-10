@@ -21,7 +21,7 @@ export function useConfigsList<T>(
     queryFn: () => getConfigs(environmentId),
     refetchInterval,
     select,
-    ...withGlobalError('Unable to retrieve configs'),
+    ...withGlobalError('无法检索配置'),
   });
 }
 

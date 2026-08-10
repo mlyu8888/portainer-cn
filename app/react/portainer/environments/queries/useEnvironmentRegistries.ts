@@ -39,6 +39,6 @@ async function getEnvironmentRegistries(
     );
     return data;
   } catch (err) {
-    throw parseAxiosError(err as Error, 'Unable to retrieve registries');
+    throw parseAxiosError(err as Error, '无法检索仓库');
   }
 }

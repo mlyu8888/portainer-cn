@@ -18,7 +18,7 @@ export function useUpdateHelmReleaseMutation(environmentId: EnvironmentId) {
       queryKeys.releases(environmentId),
       applicationsQueryKeys.applications(environmentId),
     ]),
-    ...withGlobalError('Unable to update Helm release'),
+    ...withGlobalError('无法更新 Helm 发行版'),
   });
 }
 
@@ -48,7 +48,7 @@ export async function updateHelmRelease(
   } catch (err) {
     throw parseAxiosError(
       err,
-      options.errorMessage ?? 'Unable to update helm release'
+      options.errorMessage ?? '无法更新 Helm 发行版'
     );
   }
 }

@@ -20,7 +20,7 @@ export function useEnvironment<T = Environment>(
     () => getEndpoint(environmentId!, options?.excludeSnapshot ?? undefined),
     {
       select,
-      ...withError('Failed loading environment'),
+      ...withError('加载环境失败'),
       staleTime: 50,
       enabled: !!environmentId,
       refetchInterval() {
@@ -36,7 +36,7 @@ export function useEnvironmentDeploymentOptions(id: EnvironmentId | undefined) {
     () => getDeploymentOptions(id!),
     {
       enabled: !!id,
-      ...withError('Failed loading deployment options'),
+      ...withError('加载部署选项失败'),
     }
   );
 }

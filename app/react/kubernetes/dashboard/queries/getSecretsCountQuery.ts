@@ -17,7 +17,7 @@ export function useGetSecretsCountQuery(
     queryKeys.list(environmentId),
     async () => getSecretsCount(environmentId),
     {
-      ...withError('Unable to get secrets count'),
+      ...withError('无法获取密钥数量'),
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
       },

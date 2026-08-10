@@ -22,6 +22,6 @@ async function getWebhooks(filters: Filters) {
     });
     return data;
   } catch (err) {
-    throw parseAxiosError(err, 'failed fetching webhooks');
+    throw parseAxiosError(err, '获取 Webhook 失败');
   }
 }

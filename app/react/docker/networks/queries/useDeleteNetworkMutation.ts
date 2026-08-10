@@ -22,7 +22,7 @@ export function useDeleteNetwork(environmentId: EnvironmentId) {
       deleteNetwork(environmentId, networkId, { nodeName }),
     mutationOptions(
       withInvalidate(queryClient, [queryKeys.base(environmentId)]),
-      withError('Unable to remove network')
+      withError('无法移除网络')
     )
   );
 }

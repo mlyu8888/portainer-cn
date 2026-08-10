@@ -64,10 +64,10 @@ export async function checkRepo(
       if (
         (!(creds.username && creds.password) || !creds.gitCredentialId) &&
         details ===
-          'authentication failed, please ensure that the git credentials are correct'
+          '认证失败，请确保 Git 凭据正确'
       ) {
         details =
-          'Git repository could not be found or is private, please ensure that the URL is correct or credentials are provided.';
+          'Git 仓库未找到或是私有仓库，请确保 URL 正确或提供凭据';
       }
 
       const error = new Error(details);

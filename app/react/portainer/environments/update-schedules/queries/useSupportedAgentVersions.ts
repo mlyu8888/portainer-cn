@@ -25,7 +25,7 @@ export function useSupportedAgentVersions(
         );
       },
       onSuccess,
-      ...withError('failed fetching available agent versions'),
+      ...withError('获取可用代理版本失败'),
     }
   );
 }

@@ -37,7 +37,7 @@ export function useUpdateTemplateMutation() {
     },
     mutationOptions(
       withInvalidate(queryClient, [['custom-templates']]),
-      withGlobalError('Failed to update template')
+      withGlobalError('更新模板失败')
     )
   );
 }

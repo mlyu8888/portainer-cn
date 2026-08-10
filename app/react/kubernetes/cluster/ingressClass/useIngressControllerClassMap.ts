@@ -34,7 +34,7 @@ export function useIngressControllerClassMapQuery({
       });
     },
     {
-      ...withError('Failure', 'Unable to get ingress controllers.'),
+      ...withError('Failure', '无法获取入口控制器。'),
       enabled: !!environmentId,
     }
   );
@@ -60,7 +60,7 @@ export async function getIngressControllerClassMap({
     );
     return controllerMaps;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to get ingress controllers.');
+    throw parseAxiosError(e, '无法获取入口控制器。');
   }
 }
 
@@ -79,7 +79,7 @@ export async function updateIngressControllerClassMap(
     >(buildUrl(environmentId, namespace), ingressControllerClassMap);
     return controllerMaps;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to update ingress controllers.');
+    throw parseAxiosError(e, '无法更新入口控制器。');
   }
 }
 

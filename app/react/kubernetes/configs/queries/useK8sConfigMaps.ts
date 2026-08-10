@@ -31,9 +31,9 @@ export function useK8sConfigMaps(
     {
       onError: (err) => {
         notifyError(
-          'Failure',
+          '失败',
           err as Error,
-          `Unable to get ConfigMaps in namespace '${namespace}'`
+          `无法获取命名空间中的 ConfigMap '${namespace}'`
         );
       },
       enabled: !!namespace,
@@ -53,7 +53,7 @@ async function getConfigMaps(environmentId: EnvironmentId, namespace: string) {
     }));
     return configMapsWithKind;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve ConfigMaps');
+    throw parseKubernetesAxiosError(e, '无法检索 ConfigMap');
   }
 }
 

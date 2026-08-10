@@ -34,7 +34,7 @@ export async function updateEdgeGroup({
     );
     return group;
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Failed to update Edge group');
+    throw parseAxiosError(e as Error, '更新边缘组失败');
   }
 }
 
@@ -44,7 +44,7 @@ export function useUpdateEdgeGroupMutation() {
   return useMutation(
     updateEdgeGroup,
     mutationOptions(
-      withError('Failed to update Edge group'),
+      withError('更新边缘组失败'),
       withInvalidate(queryClient, [queryKeys.base()])
     )
   );

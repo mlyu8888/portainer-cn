@@ -50,7 +50,7 @@ export function useApplicationServices(
       return filteredServices;
     },
     {
-      ...withGlobalError(`Unable to get services for ${appName}`),
+      ...withGlobalError(`无法获取 ${appName} 的服务`),
       enabled: !!app,
     }
   );

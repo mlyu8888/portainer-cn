@@ -49,7 +49,7 @@ async function getNamespaceYAML(
     );
     return yaml;
   } catch (error) {
-    throw parseKubernetesAxiosError(error, 'Unable to retrieve namespace YAML');
+    throw parseKubernetesAxiosError(error, '无法检索命名空间 YAML');
   }
 }
 

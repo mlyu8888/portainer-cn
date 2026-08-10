@@ -10,7 +10,7 @@ import { EdgeStack } from '../../types';
 export function useDownloadLogsMutation() {
   return useMutation(
     downloadLogs,
-    mutationOptions(withError('Unable to download logs'))
+    mutationOptions(withError('无法下载日志'))
   );
 }
 

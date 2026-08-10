@@ -89,7 +89,7 @@ export function ConsoleView() {
 
       socket.onerror = () => {
         disconnectConsole();
-        notifyError('Websocket connection error');
+        notifyError('WebSocket 连接错误');
       };
 
       socket.onclose = () => {

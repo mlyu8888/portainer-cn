@@ -53,7 +53,7 @@ export function useCreateNamespaceMutation(environmentId: EnvironmentId) {
       ]);
     },
     {
-      ...withGlobalError('Unable to create namespace'),
+      ...withGlobalError('无法创建命名空间'),
       ...withInvalidate(queryClient, [queryKeys.list(environmentId)]),
     }
   );

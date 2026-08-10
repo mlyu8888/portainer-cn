@@ -31,6 +31,6 @@ export function useStopContainer() {
         ),
       });
     },
-    ...withGlobalError('Unable to stop container'),
+    ...withGlobalError('无法停止容器'),
   });
 }

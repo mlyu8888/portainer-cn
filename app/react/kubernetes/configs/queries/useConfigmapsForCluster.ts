@@ -25,7 +25,7 @@ export function useConfigMapsForCluster<TData = Configuration[]>(
         isUsed: params?.isUsed,
       }),
     {
-      ...withGlobalError('Unable to retrieve ConfigMaps for cluster'),
+      ...withGlobalError('无法检索集群的 ConfigMap'),
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
       },

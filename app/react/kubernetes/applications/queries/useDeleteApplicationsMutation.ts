@@ -43,22 +43,22 @@ export function useDeleteApplicationsMutation({
       // one error notification per rejected item
       settledAppDeletions.rejectedItems.forEach(({ item, reason }) => {
         notifyError(
-          `Failed to remove application '${item.Name}'`,
+          `移除应用 '${item.Name}' 失败`,
           new Error(reason)
         );
       });
       settledStackDeletions.rejectedItems.forEach(({ item, reason }) => {
-        notifyError(`Failed to remove stack '${item.Name}'`, new Error(reason));
+        notifyError(`移除堆栈 '${item.Name}' 失败`, new Error(reason));
       });
       settledIngressUpdates.rejectedItems.forEach(({ item, reason }) => {
         notifyError(
-          `Failed to update ingress paths for '${item.Name}'`,
+          `更新入口路径 '${item.Name}' 失败`,
           new Error(reason)
         );
       });
       settledHpaDeletions.rejectedItems.forEach(({ item, reason }) => {
         notifyError(
-          `Failed to remove horizontal pod autoscaler for '${item.metadata?.name}'`,
+          `移除水平 Pod 自动扩缩器 '${item.metadata?.name}' 失败`,
           new Error(reason)
         );
       });
@@ -69,7 +69,7 @@ export function useDeleteApplicationsMutation({
           `${pluralize(
             settledAppDeletions.fulfilledItems.length,
             'Application'
-          )} successfully removed`,
+          )} 已成功移除`,
           settledAppDeletions.fulfilledItems.map((item) => item.Name).join(', ')
         );
       }
@@ -78,7 +78,7 @@ export function useDeleteApplicationsMutation({
           `${pluralize(
             settledStackDeletions.fulfilledItems.length,
             'Stack'
-          )} successfully removed`,
+          )} 已成功移除`,
           settledStackDeletions.fulfilledItems
             .map((item) => item.Name)
             .join(', ')
@@ -89,9 +89,9 @@ export function useDeleteApplicationsMutation({
     },
     // failed service deletions are handled here
     onError: (error: unknown) => {
-      notifyError('Unable to remove applications', error as Error);
+      notifyError('无法移除应用', error as Error);
     },
-    ...withGlobalError('Unable to remove applications'),
+    ...withGlobalError('无法移除应用'),
   });
 }
 
@@ -207,7 +207,7 @@ async function deleteStack(stack: Stack, environmentId: EnvironmentId) {
       },
     });
   } catch (error) {
-    throw parseAxiosError(error, 'Unable to remove stack');
+    throw parseAxiosError(error, '移除堆栈失败');
   }
 }
 
@@ -252,7 +252,7 @@ async function deleteKubernetesApplication(
     );
     removeApplicationFromStack(application, stacks);
   } catch (error) {
-    throw parseKubernetesAxiosError(error, 'Unable to remove application');
+    throw parseKubernetesAxiosError(error, '无法移除应用');
   }
 }
 
@@ -267,7 +267,7 @@ async function deletePodApplication(
     );
     removeApplicationFromStack(application, stacks);
   } catch (error) {
-    throw parseKubernetesAxiosError(error, 'Unable to remove application');
+    throw parseKubernetesAxiosError(error, '无法移除应用');
   }
 }
 
@@ -282,7 +282,7 @@ async function deleteHorizontalPodAutoscaler(
   } catch (error) {
     throw parseKubernetesAxiosError(
       error,
-      'Unable to remove horizontal pod autoscaler'
+      '移除水平 Pod 自动扩缩器失败'
     );
   }
 }

@@ -24,7 +24,7 @@ export function useCronJobs(
     queryKeys.cronJobsForCluster(environmentId),
     () => getCronJobsForCluster(environmentId, namespaces),
     {
-      ...withGlobalError('Unable to retrieve CronJobs'),
+      ...withGlobalError('无法检索定时任务'),
       enabled: !!namespaces?.length,
     }
   );

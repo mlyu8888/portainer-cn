@@ -28,7 +28,7 @@ export function useApplication<T extends Application | string = Application>(
     () =>
       getApplication<T>(environmentId, namespace, name, appKind, options?.yaml),
     {
-      ...withGlobalError('Unable to retrieve application'),
+      ...withGlobalError('无法检索应用'),
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
       },
@@ -102,7 +102,7 @@ async function getApplication<T extends Application | string = Application>(
   if (isFulfilled(pod)) {
     return pod.value;
   }
-  throw new Error('Unable to retrieve application');
+  throw new Error('无法检索应用');
 }
 
 async function getPod<T extends Pod | string = Pod>(
@@ -120,7 +120,7 @@ async function getPod<T extends Pod | string = Pod>(
     );
     return data;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve pod');
+    throw parseKubernetesAxiosError(e, '无法检索 Pod');
   }
 }
 
@@ -150,7 +150,7 @@ async function getApplicationByKind<
     );
     return data;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve application');
+    throw parseKubernetesAxiosError(e, '无法检索应用');
   }
 }
 

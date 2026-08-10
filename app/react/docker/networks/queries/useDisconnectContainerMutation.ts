@@ -38,7 +38,7 @@ export function useDisconnectContainer({
         queryKeys.item(environmentId, networkId),
         containerQueryKeys.list(environmentId),
       ]),
-      withGlobalError('Unable to disconnect container from network')
+      withGlobalError('无法将容器从网络断开')
     )
   );
 }

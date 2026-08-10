@@ -30,7 +30,7 @@ export async function createEdgeGroup(requestPayload: CreateGroupPayload) {
     );
     return group;
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Failed to create Edge group');
+    throw parseAxiosError(e as Error, '创建边缘组失败');
   }
 }
 
@@ -40,7 +40,7 @@ export function useCreateEdgeGroupMutation() {
   return useMutation(
     createEdgeGroup,
     mutationOptions(
-      withError('Failed to create Edge group'),
+      withError('创建边缘组失败'),
       withInvalidate(queryClient, [queryKeys.base()])
     )
   );

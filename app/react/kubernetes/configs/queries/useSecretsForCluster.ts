@@ -25,7 +25,7 @@ export function useSecretsForCluster<TData = Configuration[]>(
         isUsed: params?.isUsed,
       }),
     {
-      ...withGlobalError('Unable to retrieve secrets for cluster'),
+      ...withGlobalError('无法检索集群的密钥'),
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
       },

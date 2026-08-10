@@ -14,7 +14,7 @@ export function useUpdateBackupS3SettingsMutation() {
   return useMutation(updateBackupS3Settings, {
     onSuccess: () =>
       queryClient.invalidateQueries(queryKeys.backupS3Settings()),
-    ...withGlobalError('Unable to save s3 backup settings'),
+    ...withGlobalError('无法保存 S3 备份设置'),
   });
 }
 

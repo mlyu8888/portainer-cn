@@ -32,7 +32,7 @@ export function useDeleteEnvironmentsMutation() {
       };
     },
     {
-      ...withError('Unable to delete environment(s)'),
+      ...withError('无法删除环境'),
       onSuccess: ({ deleted, errors }) => {
         queryClient.invalidateQueries(['environments']);
         // show an error message for each env that failed to delete

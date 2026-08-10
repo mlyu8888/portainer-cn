@@ -21,7 +21,7 @@ export function useDrainNodeMutation(
       // invalidate apps, since drain can evict pods
       applicationQueryKeys.applications(environmentId),
     ]),
-    ...withGlobalError('Unable to drain node'),
+    ...withGlobalError('无法排空节点'),
   });
 }
 

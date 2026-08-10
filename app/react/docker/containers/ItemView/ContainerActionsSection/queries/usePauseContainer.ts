@@ -31,6 +31,6 @@ export function usePauseContainer() {
         ),
       });
     },
-    ...withGlobalError('Unable to pause container'),
+    ...withGlobalError('无法暂停容器'),
   });
 }

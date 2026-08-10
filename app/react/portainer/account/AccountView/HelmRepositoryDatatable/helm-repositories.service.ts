@@ -23,7 +23,7 @@ export async function createHelmRepository(
     );
     return data.helmRepository;
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Unable to create Helm repository');
+    throw parseAxiosError(e as Error, '无法创建 Helm 仓库');
   }
 }
 
@@ -32,7 +32,7 @@ export async function getHelmRepositories(userId: number) {
     const { data } = await axios.get<HelmRepositories>(buildUrl(userId));
     return data;
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Unable to get Helm repositories');
+    throw parseAxiosError(e as Error, '无法获取 Helm 仓库');
   }
 }
 
@@ -40,7 +40,7 @@ export async function deleteHelmRepository(repo: HelmRepository) {
   try {
     await axios.delete<HelmRepository[]>(buildUrl(repo.UserId, repo.Id));
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Unable to delete Helm repository');
+    throw parseAxiosError(e as Error, '无法删除 Helm 仓库');
   }
 }
 
@@ -48,7 +48,7 @@ export async function deleteHelmRepositories(repos: HelmRepository[]) {
   try {
     await Promise.all(repos.map((repo) => deleteHelmRepository(repo)));
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Unable to delete Helm repositories');
+    throw parseAxiosError(e as Error, '无法删除 Helm 仓库');
   }
 }
 
@@ -61,7 +61,7 @@ export function useDeleteHelmRepositoryMutation() {
       notifySuccess('Helm repository deleted successfully', helmRepository.URL);
       return queryClient.invalidateQueries(queryKeys.registries(user.Id));
     },
-    ...withError('Unable to delete Helm repository'),
+    ...withError('无法删除 Helm 仓库'),
   });
 }
 
@@ -81,7 +81,7 @@ export function useDeleteHelmRepositoriesMutation() {
       );
       return queryClient.invalidateQueries(queryKeys.registries(user.Id));
     },
-    ...withError('Unable to delete Helm repositories'),
+    ...withError('无法删除 Helm 仓库'),
   });
 }
 
@@ -91,7 +91,7 @@ export function useHelmRepositories(userId: number) {
     () => getHelmRepositories(userId),
     {
       staleTime: 20,
-      ...withError('Unable to retrieve Helm repositories'),
+      ...withError('无法检索 Helm 仓库'),
     }
   );
 }
@@ -105,7 +105,7 @@ export function useCreateHelmRepositoryMutation() {
       notifySuccess('Helm repository created successfully', payload.URL);
       return queryClient.invalidateQueries(queryKeys.registries(user.Id));
     },
-    ...withError('Unable to create Helm repository'),
+    ...withError('无法创建 Helm 仓库'),
   });
 }
 

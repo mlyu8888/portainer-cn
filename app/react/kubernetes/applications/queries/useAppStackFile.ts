@@ -29,7 +29,7 @@ export function useAppStackFile(id?: number, kind?: string) {
     },
     {
       enabled: !!id,
-      ...withGlobalError('Failed to load app stack file'),
+      ...withGlobalError('加载应用堆栈文件失败'),
     }
   );
 }

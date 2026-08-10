@@ -21,7 +21,7 @@ export function useAssociateDeviceMutation() {
     (ids: EnvironmentId[]) =>
       promiseSequence(ids.map((id) => () => associateDevice(id))),
     mutationOptions(
-      withError('Failed to associate devices'),
+      withError('关联设备失败'),
       withInvalidate(queryClient, [
         environmentQueryKeys.base(),
         nodesCountQueryKey,
@@ -34,7 +34,7 @@ async function associateDevice(environmentId: EnvironmentId) {
   try {
     await axios.post(`/endpoints/${environmentId}/edge/trust`);
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Failed to associate device');
+    throw parseAxiosError(e as Error, '关联设备失败');
   }
 }
 

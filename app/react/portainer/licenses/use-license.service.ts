@@ -12,7 +12,7 @@ export function useLicenseInfo() {
     () => getLicenseInfo(),
     {
       onError(error) {
-        notifyError('Failure', error as Error, 'Failed to get license info');
+        notifyError('Failure', error as Error, '获取许可证信息失败');
       },
     }
   );

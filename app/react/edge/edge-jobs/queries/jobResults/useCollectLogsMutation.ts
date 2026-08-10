@@ -25,6 +25,6 @@ async function collectLogsMutation(
   try {
     await axios.post(buildUrl({ id, action: 'logs', taskId: environmentId }));
   } catch (err) {
-    throw parseAxiosError(err, 'Unable to collect logs');
+    throw parseAxiosError(err, '无法收集日志');
   }
 }

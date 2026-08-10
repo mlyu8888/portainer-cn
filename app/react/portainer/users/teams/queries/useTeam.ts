@@ -12,7 +12,7 @@ export function useTeam(id: TeamId, onError?: (error: unknown) => void) {
   return useQuery({
     queryKey: queryKeys.item(id),
     queryFn: () => getTeam(id),
-    ...withGlobalError('Unable to load team'),
+    ...withGlobalError('无法加载团队'),
     onError,
   });
 }

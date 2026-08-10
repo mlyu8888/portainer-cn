@@ -39,7 +39,7 @@ export function useContainers<T = ContainerListViewModel[]>(
     queryKeys.filters(environmentId!, params),
     () => getContainers(environmentId!, params),
     {
-      ...withGlobalError('Unable to retrieve containers'),
+      ...withGlobalError('无法检索容器'),
       refetchInterval: autoRefreshRate ?? false,
       select,
       enabled: enabled && !!environmentId,

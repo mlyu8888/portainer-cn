@@ -31,7 +31,7 @@ export function useApplications(
     () => getApplications(environmentId, params),
     {
       refetchInterval,
-      ...withGlobalError('Unable to retrieve applications'),
+      ...withGlobalError('无法检索应用'),
     }
   );
 }

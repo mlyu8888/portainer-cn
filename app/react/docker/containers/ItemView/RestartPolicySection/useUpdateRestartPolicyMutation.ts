@@ -21,7 +21,7 @@ export function useUpdateRestartPolicyMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    ...withGlobalError('Unable to update restart policy'),
+    ...withGlobalError('无法更新重启策略'),
     onSuccess(_, variables) {
       queryClient.invalidateQueries({
         queryKey: queryKeys.container(

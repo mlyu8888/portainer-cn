@@ -22,7 +22,7 @@ export function useTeams<T = Team[]>(
   const teams = useQuery({
     queryKey: queryKeys.list({ onlyLedTeams, environmentId }),
     queryFn: () => getTeams(onlyLedTeams, environmentId),
-    ...withGlobalError('Unable to load teams'),
+    ...withGlobalError('无法加载团队'),
     enabled,
     select,
   });

@@ -22,7 +22,7 @@ export function useCustomTemplate(
   { enabled }: { enabled?: boolean } = {}
 ) {
   return useQuery(queryKeys.item(id!), () => getCustomTemplate(id!), {
-    ...withGlobalError('Unable to retrieve custom template'),
+    ...withGlobalError('无法检索自定义模板'),
     enabled: !!id && enabled,
   });
 }

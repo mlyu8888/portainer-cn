@@ -20,7 +20,7 @@ export function useCreateWebhook() {
         queryKey: queryKeys.base(),
       });
     },
-    ...withGlobalError('Failed to create webhook'),
+    ...withGlobalError('创建 Webhook 失败'),
   });
 }
 

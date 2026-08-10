@@ -17,7 +17,7 @@ export function useGetNamespacesCountQuery(
     queryKeys.list(environmentId),
     async () => getNamespacesCount(environmentId),
     {
-      ...withError('Unable to get namespaces count'),
+      ...withError('无法获取命名空间数量'),
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
       },

@@ -17,7 +17,7 @@ export function useDeleteWebhook() {
         queryKey: queryKeys.base(),
       });
     },
-    ...withGlobalError('Failed to delete webhook'),
+    ...withGlobalError('删除 Webhook 失败'),
   });
 }
 

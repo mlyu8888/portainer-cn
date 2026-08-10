@@ -22,6 +22,6 @@ async function getAccessTokens(userId: number) {
     const { data } = await axios.get<Array<AccessToken>>(buildUrl(userId));
     return data;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to get access tokens');
+    throw parseAxiosError(e, '无法获取访问令牌');
   }
 }

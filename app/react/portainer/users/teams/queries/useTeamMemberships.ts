@@ -13,7 +13,7 @@ export function useTeamMemberships(id?: TeamId) {
   return useQuery({
     queryKey: queryKeys.memberships(id),
     queryFn: () => (id ? getTeamMemberships(id) : getTeamsMemberships()),
-    ...withGlobalError('Unable to load team memberships'),
+    ...withGlobalError('无法加载团队成员关系'),
   });
 }
 

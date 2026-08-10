@@ -10,7 +10,7 @@ export function useIsRBACEnabled(environmentId: EnvironmentId) {
     () => getIsRBACEnabled(environmentId),
     {
       enabled: !!environmentId,
-      ...withGlobalError('Unable to check if RBAC is enabled.'),
+      ...withGlobalError('无法检查 RBAC 是否启用'),
     }
   );
 }
@@ -22,6 +22,6 @@ async function getIsRBACEnabled(environmentId: EnvironmentId) {
     );
     return data;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to check if RBAC is enabled.');
+    throw parseAxiosError(e, '无法检查 RBAC 是否启用');
   }
 }

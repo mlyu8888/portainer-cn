@@ -19,6 +19,6 @@ export function useRenameContainer() {
       nodeName?: string;
     }) => renameContainer(environmentId, containerId, name, { nodeName }),
 
-    ...withGlobalError('Failed to rename container'),
+    ...withGlobalError('重命名容器失败'),
   });
 }

@@ -24,7 +24,7 @@ export function useDeleteNamespaces(environmentId: number) {
       deleteNamespaces(environmentId, namespaceNames),
     {
       ...withInvalidate(queryClient, [queryKeys.list(environmentId)]),
-      ...withGlobalError('Unable to delete namespaces'),
+      ...withGlobalError('无法删除命名空间'),
       // onSuccess handled by the caller
     }
   );

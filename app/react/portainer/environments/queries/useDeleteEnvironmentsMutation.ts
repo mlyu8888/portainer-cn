@@ -17,7 +17,7 @@ export function useDeleteEnvironmentsMutation() {
     (ids: Array<EnvironmentId>) =>
       promiseSequence(ids.map((id) => () => deleteEndpoint(id))),
     mutationOptions(
-      withError('Failed to remove environments'),
+      withError('移除环境失败'),
       withInvalidate(queryClient, [['environments']])
     )
   );

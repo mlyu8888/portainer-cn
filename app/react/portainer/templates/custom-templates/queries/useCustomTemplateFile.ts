@@ -21,7 +21,7 @@ export function useCustomTemplateFile(
     queryKeys.file(id!, { git }),
     () => getCustomTemplateFile({ id: id!, git }),
     {
-      ...withGlobalError('Failed to get custom template file'),
+      ...withGlobalError('无法获取自定义模板文件内容'),
       enabled: !!id && enabled,
       // there's nothing to do with a new file content, so we're disabling refetch
       refetchOnReconnect: false,
@@ -33,7 +33,7 @@ export function useCustomTemplateFile(
 export function useCustomTemplateFileMutation() {
   return useMutation({
     mutationFn: getCustomTemplateFile,
-    ...withGlobalError('Failed to get custom template file'),
+    ...withGlobalError('无法获取自定义模板文件内容'),
   });
 }
 
@@ -56,7 +56,7 @@ async function getCustomTemplateFileContent(id: number) {
     );
     return FileContent;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to get custom template file content');
+    throw parseAxiosError(e, '无法获取自定义模板文件内容');
   }
 }
 
@@ -69,6 +69,6 @@ async function getCustomTemplateGitFetch(id: number) {
     );
     return FileContent;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to get custom template file content');
+    throw parseAxiosError(e, '无法获取自定义模板文件内容');
   }
 }

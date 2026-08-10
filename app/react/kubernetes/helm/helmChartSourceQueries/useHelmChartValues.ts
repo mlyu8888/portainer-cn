@@ -30,7 +30,7 @@ export function useHelmChartValues(params: Params, isLatestVersion = false) {
     }),
     retry: 1,
     staleTime: 60 * 1000 * 20, // 60 minutes, because values are not expected to change often
-    ...withGlobalError('Unable to get Helm chart values'),
+    ...withGlobalError('无法获取 Helm Chart 值'),
   });
 }
 

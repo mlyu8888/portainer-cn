@@ -9,7 +9,7 @@ export function validationSchema(): SchemaOf<BackupS3Settings> {
       .default('')
       .when('passwordProtect', {
         is: true,
-        then: (schema) => schema.required('This field is required.'),
+        then: (schema) => schema.required('此字段为必填项。'),
       }),
     scheduleAutomaticBackup: boolean().default(false),
     cronRule: string()
@@ -17,12 +17,12 @@ export function validationSchema(): SchemaOf<BackupS3Settings> {
       .when('scheduleAutomaticBackup', {
         is: true,
         then: (schema) =>
-          schema.required('This field is required.').when('cronRule', {
+          schema.required('此字段为必填项。').when('cronRule', {
             is: (val: string) => val !== '',
             then: (schema) =>
               schema.matches(
                 /^(\*(\/[1-9][0-9]*)?|([0-5]?[0-9]|6[0-9]|7[0-9])(-[0-5]?[0-9])?)(\s+(\*(\/[1-9][0-9]*)?|([0-5]?[0-9]|6[0-9]|7[0-9])(-[0-5]?[0-9])?)){4}$/,
-                'Please enter a valid cron rule.'
+                '请输入有效的 cron 规则。'
               ),
           }),
       }),
@@ -30,20 +30,20 @@ export function validationSchema(): SchemaOf<BackupS3Settings> {
       .default('')
       .when('scheduleAutomaticBackup', {
         is: true,
-        then: (schema) => schema.required('This field is required.'),
+        then: (schema) => schema.required('此字段为必填项。'),
       }),
     secretAccessKey: string()
       .default('')
       .when('scheduleAutomaticBackup', {
         is: true,
-        then: (schema) => schema.required('This field is required.'),
+        then: (schema) => schema.required('此字段为必填项。'),
       }),
     region: string().default('').optional(),
     bucketName: string()
       .default('')
       .when('scheduleAutomaticBackup', {
         is: true,
-        then: (schema) => schema.required('This field is required.'),
+        then: (schema) => schema.required('此字段为必填项。'),
       }),
     s3CompatibleHost: string()
       .default('')
@@ -52,7 +52,7 @@ export function validationSchema(): SchemaOf<BackupS3Settings> {
         then: (schema) =>
           schema.matches(
             /^https?:\/\//,
-            'S3 host must begin with http:// or https://.'
+            'S3 主机必须以 http:// 或 https:// 开头。'
           ),
       }),
   });

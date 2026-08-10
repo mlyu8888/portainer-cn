@@ -31,6 +31,6 @@ async function getSystemInfo() {
 
 export function useSystemInfo() {
   return useQuery(queryKey, getSystemInfo, {
-    ...withError('Unable to retrieve system info'),
+    ...withError('无法检索系统信息'),
   });
 }

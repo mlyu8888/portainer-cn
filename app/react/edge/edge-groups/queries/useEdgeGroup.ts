@@ -25,7 +25,7 @@ async function getEdgeGroup(id: EdgeGroup['Id']) {
     const { data } = await axios.get<EdgeGroup>(buildUrl({ id }));
     return data;
   } catch (err) {
-    throw parseAxiosError(err as Error, 'Failed fetching edge groups');
+    throw parseAxiosError(err as Error, '获取边缘组失败');
   }
 }
 
@@ -42,6 +42,6 @@ export function useEdgeGroup<T = EdgeGroup>(
     queryFn: () => getEdgeGroup(id!),
     select,
     enabled: !!id,
-    ...withError('Failed fetching edge group'),
+    ...withError('获取边缘组失败'),
   });
 }

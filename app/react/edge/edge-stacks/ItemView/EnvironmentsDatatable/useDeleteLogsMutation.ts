@@ -17,7 +17,7 @@ export function useDeleteLogsMutation() {
         logsStatusQueryKey(variables.edgeStackId, variables.environmentId)
       );
     },
-    ...withError('Unable to delete logs'),
+    ...withError('无法删除日志'),
   });
 }
 

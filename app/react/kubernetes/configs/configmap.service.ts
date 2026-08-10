@@ -41,9 +41,9 @@ export function useConfigMaps(
     {
       onError: (err) => {
         notifyError(
-          'Failure',
+          '失败',
           err as Error,
-          `Unable to get ConfigMaps in namespace '${namespace}'`
+          `无法获取命名空间中的 ConfigMap '${namespace}'`
         );
       },
       enabled: !!namespace,
@@ -60,7 +60,7 @@ export function useConfigMapsForCluster(
     configMapQueryKeys.configMapsForCluster(environmentId),
     () => namespaces && getConfigMapsForCluster(environmentId, namespaces),
     {
-      ...withError('Unable to retrieve ConfigMaps for cluster'),
+      ...withError('无法检索集群的 ConfigMap'),
       enabled: !!namespaces?.length,
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
@@ -89,7 +89,7 @@ export function useMutationDeleteConfigMaps(environmentId: EnvironmentId) {
       return { failedConfigMaps, successfulConfigMaps };
     },
     {
-      ...withError('Unable to remove ConfigMaps'),
+      ...withError('无法移除 ConfigMap'),
       onSuccess: ({ failedConfigMaps, successfulConfigMaps }) => {
         // Promise.allSettled can also resolve with errors, so check for errors here
         queryClient.invalidateQueries(
@@ -98,7 +98,7 @@ export function useMutationDeleteConfigMaps(environmentId: EnvironmentId) {
         // show an error message for each configmap that failed to delete
         failedConfigMaps.forEach(({ name, reason }) => {
           notifyError(
-            `Failed to remove ConfigMap '${name}'`,
+            `移除 ConfigMap '${name}' 失败`,
             new Error(reason.message) as Error
           );
         });
@@ -108,7 +108,7 @@ export function useMutationDeleteConfigMaps(environmentId: EnvironmentId) {
             `${pluralize(
               successfulConfigMaps.length,
               'ConfigMap'
-            )} successfully removed`,
+            )} 已成功移除`,
             successfulConfigMaps.join(', ')
           );
         }
@@ -139,7 +139,7 @@ async function getConfigMaps(environmentId: EnvironmentId, namespace: string) {
     }));
     return configMapsWithKind;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve ConfigMaps');
+    throw parseKubernetesAxiosError(e, '无法检索 ConfigMap');
   }
 }
 
@@ -151,7 +151,7 @@ async function deleteConfigMap(
   try {
     await axios.delete(buildUrl(environmentId, namespace, name));
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to remove ConfigMap');
+    throw parseKubernetesAxiosError(e, '无法移除 ConfigMap');
   }
 }
 

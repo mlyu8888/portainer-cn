@@ -11,7 +11,7 @@ import { withGlobalError } from '@/react-tools/react-query';
 export function useAssociateStackToEnvironmentMutation() {
   return useMutation({
     mutationFn: associateStackToEnvironmentMutation,
-    ...withGlobalError('Failed to associate stack to environment'),
+    ...withGlobalError('关联堆栈到环境失败'),
   });
 }
 

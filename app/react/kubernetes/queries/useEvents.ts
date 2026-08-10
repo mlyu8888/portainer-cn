@@ -49,7 +49,7 @@ async function getEvents(
     );
     return data;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve events');
+    throw parseKubernetesAxiosError(e, '无法检索事件');
   }
 }
 
@@ -70,7 +70,7 @@ export function useEvents<T = Event[]>(
     queryKeys.base(environmentId, { params, namespace }),
     () => getEvents(environmentId, { params, namespace }),
     {
-      ...withGlobalError('Unable to retrieve events'),
+      ...withGlobalError('无法检索事件'),
       refetchInterval() {
         return queryOptions?.autoRefreshRate ?? false;
       },

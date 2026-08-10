@@ -138,14 +138,14 @@ export function RollbackApplicationButton({
           },
           onError: (error) =>
             notifyError(
-              'Failure',
+              '失败',
               error as Error,
               '无法回滚应用'
             ),
         }
       );
     } catch (error) {
-      notifyError('Failure', error as Error);
+      notifyError('失败', error as Error);
     }
   }
 }

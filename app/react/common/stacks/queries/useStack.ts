@@ -16,7 +16,7 @@ export function useStack<T = Stack>(
     queryKey: queryKeys.stack(stackId),
     queryFn: () => getStack(stackId),
     enabled: !!stackId,
-    ...withGlobalError('Unable to retrieve stack'),
+    ...withGlobalError('无法检索堆栈'),
     ...queryOptions,
   });
 }
@@ -29,6 +29,6 @@ async function getStack(stackId?: StackId) {
     const { data } = await axios.get<Stack>(buildStackUrl(stackId));
     return data;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to retrieve stack');
+    throw parseAxiosError(e, '无法检索堆栈');
   }
 }

@@ -40,6 +40,6 @@ export function useUpdateGitStackSettings() {
         exact: true,
       });
     },
-    ...withGlobalError('Unable to save stack settings'),
+    ...withGlobalError('无法保存堆栈设置'),
   });
 }

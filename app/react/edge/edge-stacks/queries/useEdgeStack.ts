@@ -23,7 +23,7 @@ export function useEdgeStack(
   } = {}
 ) {
   return useQuery(id ? queryKeys.item(id) : [], () => getEdgeStack(id), {
-    ...withError('Failed loading Edge stack'),
+    ...withError('加载边缘堆栈失败'),
     enabled: !!id,
     refetchInterval,
   });

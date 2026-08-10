@@ -20,7 +20,7 @@ export function useBackupS3Settings<T = BackupS3Model>({
   return useQuery(queryKeys.backupS3Settings(), getBackupS3Settings, {
     select,
     enabled,
-    ...withError('Unable to retrieve s3 backup settings'),
+    ...withError('无法检索 S3 备份设置'),
     onSuccess,
   });
 }

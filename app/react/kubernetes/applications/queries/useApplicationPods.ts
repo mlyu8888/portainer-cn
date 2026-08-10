@@ -34,7 +34,7 @@ export function useApplicationPods(
       return pods;
     },
     {
-      ...withGlobalError(`Unable to get pods for ${appName}`),
+      ...withGlobalError(`无法获取 ${appName} 的容器组`),
       enabled: !!app,
       refetchInterval() {
         return options?.autoRefreshRate ?? false;

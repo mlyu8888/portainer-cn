@@ -34,13 +34,13 @@ export function useDeleteConfigMaps(environmentId: EnvironmentId) {
       return { failedConfigMaps, successfulConfigMaps };
     },
     {
-      ...withGlobalError('Unable to remove ConfigMaps'),
+      ...withGlobalError('无法移除 ConfigMap'),
       onSuccess: ({ failedConfigMaps, successfulConfigMaps }) => {
         // Promise.allSettled can also resolve with errors, so check for errors here
         // show an error message for each configmap that failed to delete
         failedConfigMaps.forEach(({ name, reason }) => {
           notifyError(
-            `Failed to remove ConfigMap '${name}'`,
+            `移除 ConfigMap '${name}' 失败`,
             new Error(reason.message) as Error
           );
         });
@@ -50,7 +50,7 @@ export function useDeleteConfigMaps(environmentId: EnvironmentId) {
             `${pluralize(
               successfulConfigMaps.length,
               'ConfigMap'
-            )} successfully removed`,
+            )} 已成功移除`,
             successfulConfigMaps.join(', ')
           );
         }
@@ -72,6 +72,6 @@ async function deleteConfigMap(
       `/endpoints/${environmentId}/kubernetes/api/v1/namespaces/${namespace}/configmaps/${name}`
     );
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to remove ConfigMap');
+    throw parseKubernetesAxiosError(e, '无法移除 ConfigMap');
   }
 }

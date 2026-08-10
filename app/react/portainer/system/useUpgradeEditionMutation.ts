@@ -10,7 +10,7 @@ import { buildUrl } from './build-url';
 
 export function useUpgradeEditionMutation() {
   return useMutation(upgradeEdition, {
-    ...withError('Unable to upgrade edition'),
+    ...withError('无法升级版本'),
   });
 }
 

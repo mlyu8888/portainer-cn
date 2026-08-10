@@ -22,7 +22,7 @@ export function useCreateServiceMutation(environmentId: EnvironmentId) {
     createService,
     mutationOptions(
       withInvalidate(queryClient, [queryKeys.list(environmentId)]),
-      withError('Unable to create service')
+      withError('无法创建服务')
     )
   );
 }

@@ -28,7 +28,7 @@ export function useCustomTemplates<T = Array<CustomTemplate>>({
 }: { params?: Params; select?(templates: Array<CustomTemplate>): T } = {}) {
   return useQuery(queryKeys.list(params), () => getCustomTemplates(params), {
     select,
-    ...withGlobalError('Unable to retrieve custom templates'),
+    ...withGlobalError('无法检索自定义模板'),
   });
 }
 

@@ -59,13 +59,13 @@ export function useValidation({
           name: nameValidation(values.groupIds),
           groupIds: array(number().required())
             .required()
-            .min(1, 'At least one Edge group is required'),
+            .min(1, '至少需要选择一个边缘组'),
           deploymentType: mixed<DeploymentType>()
             .oneOf([DeploymentType.Compose, DeploymentType.Kubernetes])
             .required()
             .test(
               'kubernetes-deployment-type-validation',
-              'Kubernetes deployment type is not compatible with the selected edge group(s), which contain Docker environments',
+              'Kubernetes 部署类型与所选边缘组不兼容，该边缘组包含 Docker 环境',
               (value) => {
                 if (value !== DeploymentType.Kubernetes) {
                   return true;
@@ -85,7 +85,7 @@ export function useValidation({
             )
             .test(
               'compose-deployment-type-validation',
-              'Compose deployment type is not compatible with the selected edge group(s), which contain Kubernetes environments',
+              'Compose 部署类型与所选边缘组不兼容，该边缘组包含 Kubernetes 环境',
               (value) => {
                 if (value !== DeploymentType.Compose) {
                   return true;
@@ -113,7 +113,7 @@ export function useValidation({
             .default('')
             .when('method', {
               is: 'editor',
-              then: (schema) => schema.required('Config file is required'),
+              then: (schema) => schema.required('配置文件为必填项'),
             }),
           file: file().when('method', {
             is: 'upload',

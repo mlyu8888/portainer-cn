@@ -80,7 +80,7 @@ export function KubernetesSidebar({ environmentId }: Props) {
         <SidebarItem
           to="kubernetes.ingresses"
           params={{ endpointId: environmentId }}
-          label="Ingresses"
+          label="入口"
           isSubMenu
           data-cy="k8sSidebar-ingresses"
         />

@@ -25,7 +25,7 @@ export function useConnectContainerMutation(environmentId: EnvironmentId) {
     (params: Omit<ConnectContainer, 'environmentId'>) =>
       connectContainer({ ...params, environmentId }),
     mutationOptions(
-      withGlobalError('Failed connecting container to network'),
+      withGlobalError('连接容器到网络失败'),
       withInvalidate(queryClient, [containerQueryKeys.list(environmentId)])
     )
   );

@@ -43,8 +43,8 @@ export function useApplicationHorizontalPodAutoscaler(
     },
     {
       ...withGlobalError(
-        `Unable to get horizontal pod autoscaler${
-          app ? ` for ${app.metadata?.name}` : ''
+        `无法获取水平 Pod 自动扩缩器${
+          app ? ` '${app.metadata?.name}'` : ''
         }`
       ),
       enabled: !!app,
@@ -88,7 +88,7 @@ async function getNamespaceHorizontalPodAutoscalers(
   } catch (e) {
     throw parseKubernetesAxiosError(
       e,
-      'Unable to retrieve horizontal pod autoscalers'
+      '无法检索水平 Pod 自动扩缩器'
     );
   }
 }

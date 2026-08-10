@@ -20,7 +20,7 @@ export function useDeleteEdgeStacksMutation() {
         edgeStackIds.map((edgeStackId) => () => deleteEdgeStack(edgeStackId))
       ),
     mutationOptions(
-      withError('Unable to delete Edge stack(s)'),
+      withError('无法删除边缘堆栈'),
       withInvalidate(queryClient, [queryKeys.base()])
     )
   );

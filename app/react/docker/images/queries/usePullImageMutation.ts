@@ -29,7 +29,7 @@ export function usePullImageMutation(envId: EnvironmentId) {
         ...args,
         registry: getRegistry(registriesQuery.data || [], args.registryId),
       }),
-    ...withGlobalError('Failure', 'Failed pulling image'),
+    ...withGlobalError('Failure', '拉取镜像失败'),
     ...withInvalidate(queryClient, [queryKeys.base(envId)]),
   });
 }

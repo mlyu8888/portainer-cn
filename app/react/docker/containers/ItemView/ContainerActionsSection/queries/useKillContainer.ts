@@ -31,6 +31,6 @@ export function useKillContainer() {
         ),
       });
     },
-    ...withGlobalError('Unable to kill container'),
+    ...withGlobalError('无法终止容器'),
   });
 }

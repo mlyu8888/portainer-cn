@@ -12,7 +12,7 @@ export interface DownloadBackupPayload {
 
 export function useDownloadBackupMutation() {
   return useMutation(downloadBackup, {
-    ...withGlobalError('Unable to download backup'),
+    ...withGlobalError('无法下载备份'),
   });
 }
 

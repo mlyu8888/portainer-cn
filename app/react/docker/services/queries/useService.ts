@@ -14,7 +14,7 @@ export function useService(environmentId: EnvironmentId, serviceId: ServiceId) {
     () => getService(environmentId, serviceId),
     {
       enabled: !!serviceId,
-      ...withGlobalError('Unable to retrieve service'),
+      ...withGlobalError('无法检索服务'),
     }
   );
 }

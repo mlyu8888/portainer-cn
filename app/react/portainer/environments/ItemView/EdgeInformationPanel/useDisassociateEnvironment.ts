@@ -11,7 +11,7 @@ export function useDisassociateEnvironment(environmentId: EnvironmentId) {
 
   return useMutation({
     mutationFn: () => disassociateEndpoint(environmentId),
-    ...withGlobalError('Failed to disassociate environment'),
+    ...withGlobalError('取消关联环境失败'),
     ...withInvalidate(queryClient, [environmentQueryKeys.item(environmentId)]),
   });
 }

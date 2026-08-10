@@ -19,7 +19,7 @@ export function useNetwork(
     [...queryKeys.item(environmentId, networkId), { nodeName }],
     () => getNetwork(environmentId, networkId, { nodeName }),
     {
-      ...withGlobalError('Unable to get network'),
+      ...withGlobalError('无法获取网络'),
     }
   );
 }

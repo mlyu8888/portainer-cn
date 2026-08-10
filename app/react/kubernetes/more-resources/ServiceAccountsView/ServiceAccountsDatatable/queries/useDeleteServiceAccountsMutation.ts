@@ -11,7 +11,7 @@ export function useDeleteServiceAccountsMutation(environmentId: EnvironmentId) {
   return useMutation(deleteServiceAccounts, {
     onSuccess: () =>
       queryClient.invalidateQueries(queryKeys.list(environmentId)),
-    ...withGlobalError('Unable to delete service accounts'),
+    ...withGlobalError('无法删除服务账户'),
   });
 }
 
@@ -28,6 +28,6 @@ export async function deleteServiceAccounts({
       data
     );
   } catch (e) {
-    throw parseAxiosError(e, `Unable to delete service accounts`);
+    throw parseAxiosError(e, `无法删除服务账户`);
   }
 }

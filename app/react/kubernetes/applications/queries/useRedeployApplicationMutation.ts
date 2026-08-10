@@ -40,7 +40,7 @@ export function useRedeployApplicationMutation(
           queryKeys.application(environmentId, namespace, name)
         );
       },
-      ...withGlobalError('Unable to redeploy application'),
+      ...withGlobalError('无法重新部署应用'),
     }
   );
 }
@@ -53,7 +53,7 @@ async function deletePod(
   try {
     return await axios.delete<Pod>(buildUrl(environmentId, namespace, name));
   } catch (e) {
-    throw parseKubernetesAxiosError(e as Error, 'Unable to delete pod');
+    throw parseKubernetesAxiosError(e as Error, '无法删除 Pod');
   }
 }
 

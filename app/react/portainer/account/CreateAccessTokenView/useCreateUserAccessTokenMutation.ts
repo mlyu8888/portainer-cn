@@ -12,9 +12,9 @@ export interface ApiKeyResponse {
 
 export function useCreateUserAccessTokenMutation() {
   return useMutation(createUserAccessToken, {
-    ...withError('Unable to create access token'),
+    ...withError('无法创建访问令牌'),
     onSuccess: () => {
-      notifySuccess('Success', 'Access token successfully created');
+      notifySuccess('成功', '访问令牌创建成功');
       // TODO: invalidate query when user page migrated to react.
     },
   });

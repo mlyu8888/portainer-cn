@@ -63,7 +63,7 @@ export function useCreateTemplateMutation() {
     },
     mutationOptions(
       withInvalidate(queryClient, [queryKeys.base()]),
-      withGlobalError('Failed to create template')
+      withGlobalError('创建模板失败')
     )
   );
 }

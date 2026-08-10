@@ -24,7 +24,7 @@ export function useServices<T = Service>(
     queryKeys.filters(environmentId, filters),
     () => getServices(environmentId, filters),
     {
-      ...withGlobalError('Unable to retrieve services'),
+      ...withGlobalError('无法检索服务'),
       enabled,
       select,
     }

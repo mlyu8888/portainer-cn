@@ -46,7 +46,7 @@ export function EditResourcesForm({
 
   const updateMutation = useMutation(
     updateLimitsOrCreate,
-    mutationOptions(withError('Failed to update limits'))
+    mutationOptions(withError('更新限制失败'))
   );
 
   const environmentId = useEnvironmentId();

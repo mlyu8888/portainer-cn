@@ -9,7 +9,7 @@
   <div class="col-sm-12 form-section-title"> 自定义仓库详情 </div>
   <!-- name-input -->
   <div class="form-group">
-    <label for="registry_name" class="col-sm-3 col-lg-2 control-label required text-left">Name</label>
+    <label for="registry_name" class="col-sm-3 col-lg-2 control-label required text-left">名称</label>
     <div class="col-sm-9 col-lg-10">
       <input
         type="text"
@@ -27,11 +27,11 @@
           <div ng-messages="$ctrl.registryFormCustom.registry_name.$error">
             <p ng-message="required" class="vertical-center">
               <pr-icon icon="'alert-triangle'"></pr-icon>
-              This field is required.
+              此字段为必填项。
             </p>
             <p ng-message="used" class="vertical-center">
               <pr-icon icon="'alert-triangle'"></pr-icon>
-              A registry with the same name already exists.
+              同名仓库已存在。
             </p>
           </div>
         </div>
@@ -42,8 +42,8 @@
   <!-- url-input -->
   <div class="form-group">
     <label for="registry_url" class="col-sm-3 col-lg-2 control-label required text-left">
-      Registry URL
-      <portainer-tooltip message="'URL or IP address of a Docker registry. Any protocol and trailing slash will be stripped if present.'"></portainer-tooltip>
+      仓库 URL
+      <portainer-tooltip message="'Docker 仓库的 URL 或 IP 地址。如果存在协议前缀或尾部斜杠，将自动去除。'"></portainer-tooltip>
     </label>
     <div class="col-sm-9 col-lg-10">
       <input
@@ -61,7 +61,7 @@
           <div ng-messages="$ctrl.registryFormCustom.registry_url.$error">
             <p ng-message="required" class="vertical-center">
               <pr-icon icon="'alert-triangle'"></pr-icon>
-              This field is required.
+              此字段为必填项。
             </p>
           </div>
         </div>
@@ -73,9 +73,9 @@
   <div class="form-group">
     <div class="col-sm-12">
       <por-switch-field
-        label="'Authentication'"
+        label="'身份验证'"
         label-class="'col-sm-3 col-lg-2'"
-        tooltip="'Enable this option if you need to specify credentials to connect to this registry.'"
+        tooltip="'如果需要指定凭据连接此仓库，请启用此选项。'"
         name="'administrator'"
         checked="$ctrl.model.Authentication"
         on-change="($ctrl.toggleAuthentication)"
@@ -87,7 +87,7 @@
   <div ng-if="$ctrl.model.Authentication">
     <!-- credentials-user -->
     <div class="form-group">
-      <label for="registry_username" class="col-sm-3 col-lg-2 control-label required text-left">Username</label>
+      <label for="registry_username" class="col-sm-3 col-lg-2 control-label required text-left">用户名</label>
       <div class="col-sm-9 col-lg-10">
         <input
           type="text"
@@ -103,7 +103,7 @@
             <div ng-messages="$ctrl.registryFormCustom.registry_username.$error">
               <p ng-message="required" class="vertical-center">
                 <pr-icon icon="'alert-triangle'"></pr-icon>
-                This field is required.
+                此字段为必填项。
               </p>
             </div>
           </div>
@@ -113,7 +113,7 @@
     <!-- !credentials-user -->
     <!-- credentials-password -->
     <div class="form-group">
-      <label for="registry_password" class="col-sm-3 col-lg-2 control-label required text-left">Password</label>
+      <label for="registry_password" class="col-sm-3 col-lg-2 control-label required text-left">密码</label>
       <div class="col-sm-9 col-lg-10">
         <input type="password" class="form-control" id="registry_password" name="registry_password" ng-model="$ctrl.model.Password" required />
         <div class="help-block" ng-show="$ctrl.registryFormCustom.registry_password.$invalid">
@@ -121,7 +121,7 @@
             <div ng-messages="$ctrl.registryFormCustom.registry_password.$error">
               <p ng-message="required" class="vertical-center">
                 <pr-icon icon="'alert-triangle'"></pr-icon>
-                This field is required.
+                此字段为必填项。
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@
     <!-- !credentials-password -->
   </div>
   <!-- actions -->
-  <div class="col-sm-12 form-section-title"> Actions </div>
+  <div class="col-sm-12 form-section-title"> 操作 </div>
   <div class="form-group">
     <div class="col-sm-12">
       <button
@@ -145,7 +145,7 @@
         analytics-properties="{ metadata: { type: 'custom' }}"
       >
         <span ng-hide="$ctrl.actionInProgress">{{ $ctrl.formActionLabel }}</span>
-        <span ng-show="$ctrl.actionInProgress">In progress...</span>
+        <span ng-show="$ctrl.actionInProgress">处理中...</span>
       </button>
     </div>
   </div>

@@ -16,7 +16,7 @@ export function useCronJobs(
     queryKeys.list(environmentId),
     async () => getAllCronJobs(environmentId),
     {
-      ...withGlobalError('Unable to get cron jobs'),
+      ...withGlobalError('无法获取定时任务'),
       refetchInterval() {
         return options?.refetchInterval ?? false;
       },
@@ -33,6 +33,6 @@ async function getAllCronJobs(environmentId: EnvironmentId) {
 
     return cronJobs;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to get cron jobs');
+    throw parseAxiosError(e, '无法获取定时任务');
   }
 }

@@ -31,9 +31,9 @@ export function useK8sSecrets(
     {
       onError: (err) => {
         notifyError(
-          'Failure',
+          '失败',
           err as Error,
-          `Unable to get secrets in namespace '${namespace}'`
+          `无法获取命名空间中的密钥 '${namespace}'`
         );
       },
       enabled: !!namespace,
@@ -53,7 +53,7 @@ async function getSecrets(environmentId: EnvironmentId, namespace: string) {
     }));
     return secretsWithKind;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve secrets');
+    throw parseKubernetesAxiosError(e, '无法检索密钥');
   }
 }
 

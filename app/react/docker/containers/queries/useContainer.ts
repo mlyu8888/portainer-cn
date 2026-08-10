@@ -96,7 +96,7 @@ export function useContainer<T>(
     queryFn: () => getContainer(environmentId, containerId!, { nodeName }),
     enabled: enabled && !!containerId,
     select,
-    ...withGlobalError('Unable to retrieve container'),
+    ...withGlobalError('无法检索容器'),
   });
 }
 

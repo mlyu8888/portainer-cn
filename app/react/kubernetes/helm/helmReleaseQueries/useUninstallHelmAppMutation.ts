@@ -21,7 +21,7 @@ export function useUninstallHelmAppMutation(environmentId: EnvironmentId) {
       queryKeys.releases(environmentId),
       applicationsQueryKeys.applications(environmentId),
     ]),
-    ...withGlobalError('Unable to uninstall helm application'),
+    ...withGlobalError('无法卸载 Helm 应用'),
   });
 }
 

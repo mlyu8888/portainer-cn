@@ -186,7 +186,7 @@ async function getLocalEnvironmentRateLimits(
   } catch (e) {
     throw parseAxiosError(
       e as Error,
-      'Unable to retrieve DockerHub pull rate limits'
+      '无法检索 DockerHub 拉取速率限制'
     );
   }
 }

@@ -17,7 +17,7 @@ export function useDeleteAccessTokensMutation() {
   return useMutation({
     mutationFn: (ids: Array<AccessToken['id']>) =>
       deleteAccessTokens(user.Id, ids),
-    ...withError('Failed to delete access tokens'),
+    ...withError('删除访问令牌失败'),
     ...withInvalidate(queryClient, [queryKeys.base(user.Id)]),
   });
 }
@@ -35,6 +35,6 @@ async function deleteAccessToken(userId: number, id: AccessToken['id']) {
   try {
     await axios.delete(buildUrl(userId, id));
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to delete access token');
+    throw parseAxiosError(e, '无法删除访问令牌');
   }
 }

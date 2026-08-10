@@ -10,7 +10,7 @@ export function useDeleteRolesMutation(environmentId: EnvironmentId) {
   const queryClient = useQueryClient();
   return useMutation(deleteRole, {
     ...withInvalidate(queryClient, [queryKeys.list(environmentId)]),
-    ...withGlobalError('Unable to delete roles'),
+    ...withGlobalError('无法删除角色'),
   });
 }
 
@@ -24,6 +24,6 @@ export async function deleteRole({
   try {
     return await axios.post(`kubernetes/${environmentId}/roles/delete`, data);
   } catch (e) {
-    throw parseAxiosError(e, `Unable to delete roles`);
+    throw parseAxiosError(e, `无法删除角色`);
   }
 }

@@ -54,8 +54,8 @@ export function CreateIngressView() {
 
   useEffect(() => {
     if (!isAuthorizedToAddEdit) {
-      const message = `Not authorized to ${isEdit ? 'edit' : 'add'} ingresses`;
-      notifyError('Error', new Error(message));
+      const message = `未授权${isEdit ? '编辑' : '添加'}入口`;
+      notifyError('错误', new Error(message));
       router.stateService.go('kubernetes.ingresses');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

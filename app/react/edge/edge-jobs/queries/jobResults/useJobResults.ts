@@ -50,6 +50,6 @@ async function getJobResults(id: EdgeJob['Id'], params?: QueryParams) {
 
     return withPaginationHeaders(response);
   } catch (err) {
-    throw parseAxiosError(err, 'Failed fetching edge job results');
+    throw parseAxiosError(err, '获取边缘任务结果失败');
   }
 }

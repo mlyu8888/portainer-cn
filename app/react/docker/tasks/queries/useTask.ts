@@ -15,7 +15,7 @@ export function useTask(environmentId: EnvironmentId, taskId: TaskId) {
 
     () => getTask(environmentId, taskId),
     {
-      ...withGlobalError('Unable to retrieve task'),
+      ...withGlobalError('无法检索任务'),
     }
   );
 }

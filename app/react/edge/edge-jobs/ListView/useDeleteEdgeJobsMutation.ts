@@ -20,7 +20,7 @@ export function useDeleteEdgeJobsMutation() {
         edgeJobIds.map((edgeJobId) => () => deleteEdgeJob(edgeJobId))
       ),
     mutationOptions(
-      withError('Unable to delete Edge job(s)'),
+      withError('无法删除边缘任务'),
       withInvalidate(queryClient, [queryKeys.base()])
     )
   );
@@ -30,6 +30,6 @@ async function deleteEdgeJob(id: EdgeJob['Id']) {
   try {
     await axios.delete(buildUrl({ id }));
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to delete edge job');
+    throw parseAxiosError(e, '无法删除边缘任务');
   }
 }

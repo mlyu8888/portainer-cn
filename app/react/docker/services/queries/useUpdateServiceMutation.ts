@@ -22,7 +22,7 @@ export function useUpdateServiceMutation(environmentId: EnvironmentId) {
     updateService,
     mutationOptions(
       withInvalidate(queryClient, [queryKeys.list(environmentId)]),
-      withError('Unable to update service')
+      withError('无法更新服务')
     )
   );
 }

@@ -12,7 +12,7 @@ export async function getAllIngressClasses(environmentId: EnvironmentId) {
     } = await axios.get<IngressClassList>(urlBuilder(environmentId));
     return items;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve ingress classes');
+    throw parseKubernetesAxiosError(e, '无法检索入口类');
   }
 }
 

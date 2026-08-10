@@ -29,7 +29,7 @@ export function useUpdateEnvironmentsRelationsMutation() {
         groupQueryKeys.base(),
         tagKeys.all,
       ]),
-      withError('Unable to update environment relations')
+      withError('无法更新环境关系')
     )
   );
 }
@@ -46,6 +46,6 @@ export async function updateEnvironmentRelations(
   try {
     await axios.put(buildUrl(undefined, 'relations'), { relations });
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Unable to update environment relations');
+    throw parseAxiosError(e as Error, '无法更新环境关系');
   }
 }

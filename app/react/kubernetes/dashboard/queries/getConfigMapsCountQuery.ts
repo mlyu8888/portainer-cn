@@ -17,7 +17,7 @@ export function useGetConfigMapsCountQuery(
     queryKeys.list(environmentId),
     async () => getConfigMapsCount(environmentId),
     {
-      ...withError('Unable to get applications count'),
+      ...withError('无法获取配置映射数量'),
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
       },

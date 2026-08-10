@@ -25,6 +25,6 @@ async function clearLogsMutation(
   try {
     await axios.delete(buildUrl({ id, action: 'logs', taskId: environmentId }));
   } catch (err) {
-    throw parseAxiosError(err, 'Failed clearing edge job result logs');
+    throw parseAxiosError(err, '清除边缘任务结果日志失败');
   }
 }

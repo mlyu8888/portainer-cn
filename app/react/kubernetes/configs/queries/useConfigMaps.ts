@@ -16,7 +16,7 @@ export function useConfigMaps(environmentId: EnvironmentId, namespace: string) {
     () => (namespace ? getConfigMaps(environmentId, namespace) : []),
     {
       ...withGlobalError(
-        `Unable to get ConfigMaps in namespace '${namespace}'`
+        `无法获取命名空间中的 ConfigMap '${namespace}'`
       ),
       enabled: !!namespace,
     }
@@ -36,6 +36,6 @@ async function getConfigMaps(environmentId: EnvironmentId, namespace?: string) {
     }));
     return configmaps;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve ConfigMaps');
+    throw parseKubernetesAxiosError(e, '无法检索 ConfigMap');
   }
 }

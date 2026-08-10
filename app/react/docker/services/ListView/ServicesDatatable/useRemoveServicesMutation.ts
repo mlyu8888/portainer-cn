@@ -12,7 +12,7 @@ export function useRemoveServicesMutation(environmentId: EnvironmentId) {
   return useMutation(
     (ids: Array<string>) =>
       promiseSequence(ids.map((id) => () => removeService(environmentId, id))),
-    withError('Unable to remove services')
+    withError('无法移除服务')
   );
 }
 

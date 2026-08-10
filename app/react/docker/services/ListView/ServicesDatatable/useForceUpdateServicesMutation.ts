@@ -11,6 +11,6 @@ export function useForceUpdateServicesMutation(environmentId: EnvironmentId) {
       promiseSequence(
         ids.map((id) => () => forceUpdateService(environmentId, id, pullImage))
       ),
-    withError('Failed to remove services')
+    withError('移除服务失败')
   );
 }

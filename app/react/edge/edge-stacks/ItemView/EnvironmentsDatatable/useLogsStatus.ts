@@ -46,6 +46,6 @@ async function getLogsStatus(
     );
     return data.status;
   } catch (error) {
-    throw parseAxiosError(error as Error, 'Unable to retrieve logs status');
+    throw parseAxiosError(error as Error, '无法检索日志状态');
   }
 }

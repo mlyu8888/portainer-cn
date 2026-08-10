@@ -34,7 +34,7 @@ export function useGroup<T = EnvironmentGroup>(
       staleTime: 50,
       select,
       enabled: groupId !== undefined,
-      ...withGlobalError('Failed loading group'),
+      ...withGlobalError('加载分组失败'),
     }
   );
 }

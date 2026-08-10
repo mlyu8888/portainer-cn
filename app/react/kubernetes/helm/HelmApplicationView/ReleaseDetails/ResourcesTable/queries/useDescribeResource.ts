@@ -56,7 +56,7 @@ export function useDescribeResource(
     () => getDescribeResource(environmentId, name, resourceType, namespace),
     {
       enabled: !!environmentId && !!name && !!resourceType,
-      ...withGlobalError('Enable to retrieve data for resource'),
+      ...withGlobalError('无法检索资源数据'),
     }
   );
 }

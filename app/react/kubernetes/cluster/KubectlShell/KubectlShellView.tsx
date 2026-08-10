@@ -67,9 +67,9 @@ export function KubectlShellView() {
       closeTerminal();
       if (socket?.readyState !== WebSocket.CLOSED) {
         notifyError(
-          'Failure',
+          '失败',
           e as unknown as Error,
-          'Websocket connection error'
+          'WebSocket 连接错误'
         );
       }
     }

@@ -15,13 +15,13 @@ import { AccessMode, StorageClassFormValues } from './types';
 export const availableStorageClassPolicies = [
   {
     Name: 'RWO',
-    Description: 'Allow read-write from a single pod only (RWO)',
+    Description: '仅允许从单个 Pod 读写 (RWO)',
     selected: true,
   },
   {
     Name: 'RWX',
     Description:
-      'Allow read-write access from one or more pods concurrently (RWX)',
+      '允许从一个或多个 Pod 并发读写 (RWX)',
     selected: false,
   },
 ];
@@ -44,7 +44,7 @@ export function useStorageClasses(environment?: Environment | null) {
       return storageClasses;
     },
     {
-      ...withError('Failure', `Unable to get Storage Classes`),
+      ...withError('失败', `无法获取存储类`),
       enabled: !!environment,
     }
   );
@@ -72,7 +72,7 @@ export function useStorageClassesFormValues(environment?: Environment | null) {
       return storageClassFormValues;
     },
     {
-      ...withError('Failure', `Unable to get Storage Classes`),
+      ...withError('失败', `无法获取存储类`),
       enabled: !!environment,
     }
   );
@@ -87,7 +87,7 @@ async function getStorageClasses(
     );
     return storageClassList.items;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve Storage Classes');
+    throw parseKubernetesAxiosError(e, '无法检索存储类');
   }
 }
 

@@ -17,7 +17,7 @@ export function useUpdateWebhook() {
         queryKey: queryKeys.base(),
       });
     },
-    ...withGlobalError('Failed to update webhook'),
+    ...withGlobalError('更新 Webhook 失败'),
   });
 }
 

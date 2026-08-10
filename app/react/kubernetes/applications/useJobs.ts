@@ -21,7 +21,7 @@ export function useJobs(environmentId: EnvironmentId, namespaces?: string[]) {
     queryKeys.jobsForCluster(environmentId),
     () => getJobsForCluster(environmentId, namespaces),
     {
-      ...withGlobalError('Unable to retrieve Jobs'),
+      ...withGlobalError('无法检索任务'),
       enabled: !!namespaces?.length,
     }
   );

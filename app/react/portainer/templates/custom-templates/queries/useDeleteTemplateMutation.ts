@@ -18,7 +18,7 @@ export function useDeleteTemplateMutation() {
     deleteTemplate,
     mutationOptions(
       withInvalidate(queryClient, [queryKeys.base()]),
-      withGlobalError('Unable to delete custom template')
+      withGlobalError('无法删除自定义模板')
     )
   );
 }

@@ -17,7 +17,7 @@ async function getEdgeJob(id: EdgeJobResponse['Id']) {
     const { data } = await axios.get<EdgeJobResponse>(buildUrl({ id }));
     return data;
   } catch (err) {
-    throw parseAxiosError(err, 'Failed fetching edge job');
+    throw parseAxiosError(err, '获取边缘任务失败');
   }
 }
 

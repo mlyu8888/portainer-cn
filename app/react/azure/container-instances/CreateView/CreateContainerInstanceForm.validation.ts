@@ -30,7 +30,7 @@ export function validationSchema(isAdmin: boolean) {
         'unique',
         '该环境变量已定义',
         buildUniquenessTest(
-          () => 'This environment variable is already defined',
+          () => '该环境变量已定义',
           'name'
         )
       ),

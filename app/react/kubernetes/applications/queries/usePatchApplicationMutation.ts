@@ -111,7 +111,7 @@ async function patchApplicationByKind<T extends Application>(
     );
     return res;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to patch application');
+    throw parseKubernetesAxiosError(e, '无法修补应用');
   }
 }
 
@@ -132,7 +132,7 @@ async function patchPod(
       }
     );
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to update pod');
+    throw parseAxiosError(e, '无法更新 Pod');
   }
 }
 

@@ -23,7 +23,7 @@ export function useEdgeStacks<T extends EdgeStack[] = EdgeStack[]>({
     queryKey: queryKeys.base(),
     queryFn: () => getEdgeStacks<T>(params),
     refetchInterval,
-    ...withGlobalError('Failed loading Edge stack'),
+    ...withGlobalError('加载边缘堆栈失败'),
   });
 }
 

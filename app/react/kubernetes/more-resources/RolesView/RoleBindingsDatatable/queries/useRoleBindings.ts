@@ -16,7 +16,7 @@ export function useRoleBindings(
     queryKeys.list(environmentId),
     async () => getAllRoleBindings(environmentId),
     {
-      ...withGlobalError('Unable to get role bindings'),
+      ...withGlobalError('无法获取角色绑定'),
       refetchInterval() {
         return options?.autoRefreshRate ?? false;
       },
@@ -33,6 +33,6 @@ async function getAllRoleBindings(environmentId: EnvironmentId) {
 
     return roleBinding;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to get role bindings');
+    throw parseAxiosError(e, '无法获取角色绑定');
   }
 }

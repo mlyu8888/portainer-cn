@@ -22,7 +22,7 @@ export function useUpdateEnvironmentMutation() {
   return useMutation({
     mutationFn: updateEnvironment,
     ...withInvalidate(queryClient, [environmentQueryKeys.base()]),
-    ...withGlobalError('Unable to update environment'),
+    ...withGlobalError('无法更新环境'),
   });
 }
 
@@ -74,7 +74,7 @@ export async function updateEnvironment({
 
     return endpoint;
   } catch (e) {
-    throw parseAxiosError(e as Error, 'Unable to update environment');
+    throw parseAxiosError(e as Error, '无法更新环境');
   }
 }
 

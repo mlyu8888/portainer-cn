@@ -24,7 +24,7 @@ async function getEdgeGroups() {
     const { data } = await axios.get<EdgeGroupListItemResponse[]>(buildUrl());
     return data;
   } catch (err) {
-    throw parseAxiosError(err as Error, 'Failed fetching edge groups');
+    throw parseAxiosError(err as Error, '获取边缘组失败');
   }
 }
 

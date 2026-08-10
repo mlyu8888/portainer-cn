@@ -26,7 +26,7 @@ export function useUpdateNodeMutation(
         queryKeys.nodes(environmentId),
         queryKeys.node(environmentId, nodeName),
       ]),
-      ...withGlobalError('Unable to update node'),
+      ...withGlobalError('无法更新节点'),
     }
   );
 }
@@ -50,7 +50,7 @@ async function updateNode(
     );
     return data;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to update node');
+    throw parseKubernetesAxiosError(e, '无法更新节点');
   }
 }
 

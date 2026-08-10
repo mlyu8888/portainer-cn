@@ -35,7 +35,7 @@ export function useClusterServices<T = Service[]>(
     queryKeys.clusterServices(environmentId),
     async () => getClusterServices(environmentId, options?.withApplications),
     {
-      ...withGlobalError('Unable to get services.'),
+      ...withGlobalError('无法获取服务'),
       refetchInterval: options?.autoRefreshRate,
       select: options?.select,
     }
@@ -61,7 +61,7 @@ export function useServicesQuery<T extends Service | string = Service>(
       return services;
     },
     {
-      ...withGlobalError('Unable to retrieve services.'),
+      ...withGlobalError('无法检索服务'),
       enabled: !!serviceNames?.length,
     }
   );
@@ -72,7 +72,7 @@ export function useMutationDeleteServices(environmentId: EnvironmentId) {
   return useMutation(deleteServices, {
     onSuccess: () =>
       queryClient.invalidateQueries(queryKeys.clusterServices(environmentId)),
-    ...withGlobalError('Unable to delete service(s)'),
+    ...withGlobalError('无法删除服务'),
   });
 }
 
@@ -93,7 +93,7 @@ export async function getServices(
     );
     return services;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to retrieve services');
+    throw parseAxiosError(e, '无法检索服务');
   }
 }
 
@@ -112,7 +112,7 @@ export async function getClusterServices(
     );
     return services;
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to retrieve services');
+    throw parseAxiosError(e, '无法检索服务');
   }
 }
 
@@ -132,7 +132,7 @@ export async function getNamespaceServices(
     );
     return services.items;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve services');
+    throw parseKubernetesAxiosError(e, '无法检索服务');
   }
 }
 
@@ -153,7 +153,7 @@ async function getService<T extends Service | string = Service>(
     );
     return service;
   } catch (e) {
-    throw parseKubernetesAxiosError(e, 'Unable to retrieve service');
+    throw parseKubernetesAxiosError(e, '无法检索服务');
   }
 }
 
@@ -170,6 +170,6 @@ export async function deleteServices({
       data
     );
   } catch (e) {
-    throw parseAxiosError(e, 'Unable to delete service(s)');
+    throw parseAxiosError(e, '无法删除服务');
   }
 }

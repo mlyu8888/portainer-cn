@@ -17,7 +17,7 @@ export function useToggleSystemNamespaceMutation(
     ...withInvalidate(queryClient, [
       queryKeys.namespace(environmentId, namespaceName),
     ]),
-    ...withGlobalError('Failed to update namespace'),
+    ...withGlobalError('更新命名空间失败'),
   });
 }
 

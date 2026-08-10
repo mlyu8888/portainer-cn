@@ -10,7 +10,7 @@ export function useDeleteJobsMutation(environmentId: EnvironmentId) {
   const queryClient = useQueryClient();
   return useMutation(deleteJob, {
     ...withInvalidate(queryClient, [queryKeys.list(environmentId)]),
-    ...withGlobalError('Unable to delete Jobs'),
+    ...withGlobalError('无法删除任务'),
   });
 }
 
@@ -26,6 +26,6 @@ export async function deleteJob({
   try {
     return await axios.post(`kubernetes/${environmentId}/jobs/delete`, data);
   } catch (e) {
-    throw parseAxiosError(e, `Unable to delete Jobs`);
+    throw parseAxiosError(e, `无法删除任务`);
   }
 }

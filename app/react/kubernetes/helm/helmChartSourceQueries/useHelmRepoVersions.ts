@@ -50,7 +50,7 @@ export function useHelmRepoVersions(
           queryFn: () => getSearchHelmRepo({ repo, chart, useCache }),
           enabled: !!chart && !!repo,
           staleTime,
-          ...withGlobalError(`Unable to retrieve versions from ${repo}`),
+          ...withGlobalError(`无法检索 ${repo} 的版本`),
         })),
       [repoSources, chart, staleTime, useCache]
     ),
