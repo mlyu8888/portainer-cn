@@ -11,7 +11,7 @@ type Props = {
 export function PublishedPortLink({ hostURL, hostPort, containerPort }: Props) {
   return (
     <a
-      className="image-tag"
+      className="image-tag inline-flex items-center"
       href={generateContainerURL(hostURL, hostPort, containerPort)}
       target="_blank"
       rel="noreferrer"

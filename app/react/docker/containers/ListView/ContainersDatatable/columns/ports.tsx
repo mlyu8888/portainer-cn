@@ -17,6 +17,7 @@ export const ports = columnHelper.accessor(
     header: '端口映射',
     id: 'ports',
     cell: Cell,
+    meta: { width: '250px' },
   }
 );
 
@@ -29,12 +30,16 @@ function Cell({ row }: CellContext<ContainerListViewModel, string>) {
     return '-';
   }
 
-  return _.uniqBy(ports, 'public').map((port) => (
-    <PublishedPortLink
-      key={`${port.host}:${port.public}`}
-      hostPort={port.public}
-      containerPort={port.private}
-      hostURL={environment.PublicURL || port.host}
-    />
-  ));
+  return (
+    <div className="flex items-center gap-2">
+      {_.uniqBy(ports, 'public').map((port) => (
+        <PublishedPortLink
+          key={`${port.host}:${port.public}`}
+          hostPort={port.public}
+          containerPort={port.private}
+          hostURL={environment.PublicURL || port.host}
+        />
+      ))}
+    </div>
+  );
 }
