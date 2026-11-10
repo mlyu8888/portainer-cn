@@ -19,7 +19,7 @@
 
 ## 快速开始
 
-从 GitHub Container Registry 直接拉取中文版镜像（无需登录，公开可拉）：
+从 GitHub Container Registry 直接拉取中文版镜像（无需登录，公开可拉；amd64 / arm64 多架构，自动匹配主机架构）：
 
 ```bash
 docker pull ghcr.io/mlyu8888/portainer-cn:2.39.3
@@ -38,7 +38,9 @@ docker run -d -p 8000:8000 -p 9443:9443 \
 
 | 标签 | 说明 |
 |------|------|
-| `ghcr.io/mlyu8888/portainer-cn:2.39.3` | 中文版 2.39.3（amd64） |
+| `ghcr.io/mlyu8888/portainer-cn:2.39.3` | 中文版 2.39.3（**amd64 / arm64 多架构**，`docker pull` 时自动匹配主机架构） |
+| `ghcr.io/mlyu8888/portainer-cn:2.39.3-amd64` | 仅 amd64 |
+| `ghcr.io/mlyu8888/portainer-cn:2.39.3-arm64` | 仅 arm64 |
 
 - 包地址：https://github.com/users/mlyu8888/packages/container/package/portainer-cn
 - 可见性：Public，支持匿名拉取
