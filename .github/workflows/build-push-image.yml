@@ -1,9 +1,8 @@
 name: 构建并推送 Docker 镜像到 GHCR
 
+# 本地镜像直接推送 GHCR 为主；此 workflow 仅保留手动触发（修复 portainer/base:amd64
+# 在 Docker Hub 不存在的问题后再启用自动触发）
 on:
-  push:
-    branches: [main, master]
-    tags: ['v*']
   workflow_dispatch:
 
 permissions:
