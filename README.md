@@ -19,25 +19,37 @@
 
 ## 快速开始
 
+从 GitHub Container Registry 直接拉取中文版镜像（无需登录，公开可拉）：
+
 ```bash
+docker pull ghcr.io/mlyu8888/portainer-cn:2.39.3
+
 docker volume create portainer_data
 docker run -d -p 8000:8000 -p 9443:9443 \
   --name=portainer --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v portainer_data:/data \
-  portainer/portainer-ce:2.39.3
+  ghcr.io/mlyu8888/portainer-cn:2.39.3
 ```
 
-访问 `https://localhost:9443`。更多部署方式（Swarm / Kubernetes / 离线安装）见 [官方部署文档](https://docs.portainer.io/start/install-ce)。
+访问 `https://localhost:9443` 即为中文界面。
 
-> 提示：如需运行本中文版，请按下方"本地构建"自行构建镜像。
+## 镜像仓库
 
-## 本地构建
+| 标签 | 说明 |
+|------|------|
+| `ghcr.io/mlyu8888/portainer-cn:2.39.3` | 中文版 2.39.3（amd64） |
+
+- 包地址：https://github.com/users/mlyu8888/packages/container/package/portainer-cn
+- 可见性：Public，支持匿名拉取
+- 更多部署方式（Swarm / Kubernetes / 离线安装）见 [官方部署文档](https://docs.portainer.io/start/install-ce)
+
+## 本地构建与发布
 
 ### 环境要求
 
 - **pnpm** 10+（前端）
-- **Go** 1.25.8（后端）
+- **Go** 1.25.9（后端）
 - **Docker**（构建镜像，建议 buildx）
 
 ### 1. 构建前端（必须为 production 产物）
@@ -60,14 +72,24 @@ GIT_COMMIT_HASH=unknown ./build/build_binary.sh linux arm64
 
 ```bash
 docker buildx build --build-arg BASE_TAG=amd64 --load \
-  -t portainer-ch:2.39.3 -f build/linux/Dockerfile .
+  -t ghcr.io/mlyu8888/portainer-cn:2.39.3 -f build/linux/Dockerfile .
 ```
 
 ### 4. 构建 Docker 镜像（arm64）
 
 ```bash
 docker buildx build --platform linux/arm64 --build-arg BASE_TAG=arm64 --load \
-  -t portainer-ch:2.39.3-arm64 -f build/linux/Dockerfile .
+  -t ghcr.io/mlyu8888/portainer-cn:2.39.3-arm64 -f build/linux/Dockerfile .
+```
+
+### 5. 推送到 GHCR
+
+```bash
+# 登录（需 GitHub PAT，勾选 write:packages 权限）
+docker login ghcr.io -u <你的GitHub用户名>
+
+docker push ghcr.io/mlyu8888/portainer-cn:2.39.3
+docker push ghcr.io/mlyu8888/portainer-cn:2.39.3-arm64
 ```
 
 ## 二次开发
