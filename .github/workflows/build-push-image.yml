@@ -1,0 +1,92 @@
+name: 构建并推送 Docker 镜像到 GHCR
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE: ghcr.io/mlyu8888/portainer-cn
+  VERSION: '2.39.3'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 pnpm（读取 packageManager 版本）
+        uses: pnpm/action-setup@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装前端依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 构建前端（production）
+        run: NODE_ENV=production pnpm run build --config webpack/webpack.production.js
+
+      - name: 安装 Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: 准备 dist 目录（Dockerfile COPY 需要）
+        run: mkdir -p dist/docker dist/storybook
+
+      - name: 编译 amd64 二进制
+        run: GIT_COMMIT_HASH=${{ github.sha }} ./build/build_binary.sh linux amd64
+
+      - name: 设置 buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 登录 GHCR（内置 GITHUB_TOKEN）
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 构建并推送 amd64 镜像
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: build/linux/Dockerfile
+          push: true
+          platforms: linux/amd64
+          build-args: BASE_TAG=amd64
+          tags: ${{ env.IMAGE }}:${{ env.VERSION }}-amd64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 编译 arm64 二进制（覆盖 dist/portainer）
+        run: GIT_COMMIT_HASH=${{ github.sha }} ./build/build_binary.sh linux arm64
+
+      - name: 构建并推送 arm64 镜像
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: build/linux/Dockerfile
+          push: true
+          platforms: linux/arm64
+          build-args: BASE_TAG=arm64
+          tags: ${{ env.IMAGE }}:${{ env.VERSION }}-arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 合并为多架构 manifest（自动匹配架构）
+        run: |
+          docker buildx imagetools create \
+            -t ${{ env.IMAGE }}:${{ env.VERSION }} \
+            ${{ env.IMAGE }}:${{ env.VERSION }}-amd64 \
+            ${{ env.IMAGE }}:${{ env.VERSION }}-arm64
