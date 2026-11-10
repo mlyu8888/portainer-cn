@@ -34,3 +34,13 @@ coverage.out
 
 # CodeGraph 本地代码索引数据
 .codegraph/
+
+# opencode 本地配置（可能含权限规则/凭据）
+.opencode/
+
+# 本地环境变量
+.env.local
+.env.*.local
+
+# 开发时可能误生成的数据库
+portainer.db
