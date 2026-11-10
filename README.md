@@ -44,17 +44,6 @@ docker run -d -p 8000:8000 -p 9443:9443 \
 - 可见性：Public，支持匿名拉取
 - 更多部署方式（Swarm / Kubernetes / 离线安装）见 [官方部署文档](https://docs.portainer.io/start/install-ce)
 
-## 二次开发
-
-```bash
-make build        # 完整构建（前端 + 后端）
-make dev          # 开发模式（前端 :8999 / 后端 :9000）
-pnpm typecheck    # 类型检查
-pnpm lint         # 代码检查
-pnpm test         # 前端测试
-make test         # 全部测试
-```
-
 ## 版本与上游
 
 - 当前版本：**Portainer CE 2.39.3** 中文版
