@@ -52,8 +52,6 @@ docker run -d -p 8000:8000 -p 9443:9443 \
 
 ## 许可
 
-本项目采用 [MIT 许可证](./LICENSE)。
-
-上游 Portainer 官方代码采用 zlib 许可证，原始声明保留于 [LICENSE.portainer](./LICENSE.portainer)。
+本项目基于 zlib 许可证，详见 [LICENSE](./LICENSE)。
 
 Portainer 还包含来自开源项目的代码，详见 [ATTRIBUTIONS.md](./ATTRIBUTIONS.md)。
