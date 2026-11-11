@@ -44,13 +44,11 @@ docker run -d -p 8000:8000 -p 9443:9443 \
 
 - 包地址：https://github.com/users/mlyu8888/packages/container/package/portainer-cn
 - 可见性：Public，支持匿名拉取
-- 更多部署方式（Swarm / Kubernetes / 离线安装）见 [官方部署文档](https://docs.portainer.io/start/install-ce)
 
 ## 版本与上游
 
 - 当前版本：**Portainer CE 2.39.3** 中文版
 - 上游仓库：https://github.com/portainer/portainer
-- 同步方式：关注上游 release，将变更 cherry-pick / 合并至本仓库
 
 ## 许可
 
