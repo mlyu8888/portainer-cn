@@ -10,12 +10,7 @@
   "bugs": {
     "url": "https://github.com/portainer/portainer/issues"
   },
-  "licenses": [
-    {
-      "type": "Zlib",
-      "url": "https://raw.githubusercontent.com/portainer/portainer/develop/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server",
     "start": "webpack -w",
